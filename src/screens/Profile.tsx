@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text } from "react-native";
+import { View, Text } from "react-native";
 
 const ProfileScreen = ({ navigation, route }) => {
 
     console.log("ProfileScreen")
 
-    return <Text>This is {route.params.name}'s profile</Text>;
+    return <View><Text>This is {route.params.name}'s profile</Text></View>;
 };
 
 export default ProfileScreen;
