@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Button } from "react-native";
+import Counter from '../components/Counter'
 
 const HomeScreen = ({ navigation }) => {
     console.log("HomeScreen")
@@ -12,6 +13,7 @@ const HomeScreen = ({ navigation }) => {
                     navigation.navigate('Profile', { name: 'Jane' })
                 }
             />
+            <Counter />
         </View>
     );
 };
