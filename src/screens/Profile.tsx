@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text } from "react-native";
+import type { ProfileProps } from '../navigation/types';
 
-const ProfileScreen = ({ navigation, route }) => {
+const ProfileScreen = ({ navigation, route }: ProfileProps) => {
     console.log("ProfileScreen")
     return (
         <View>

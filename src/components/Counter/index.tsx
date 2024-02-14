@@ -20,7 +20,7 @@ function Counter() {
           <Text>
             {count}
           </Text>
-          
+
         </View>
         <Button
           title='Decrement'
