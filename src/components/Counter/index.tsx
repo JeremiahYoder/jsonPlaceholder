@@ -1,11 +1,10 @@
 import React from 'react'
 import { View, Button, Text } from 'react-native'
-import type { RootState } from '../../store'
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../../slices/counterSlice'
+import { getCount, decrement, increment } from '../../slices/counterSlice'
 
 function Counter() {
-  const count = useSelector((state: RootState) => state.counter.value)
+  const count = useSelector(getCount)
   const dispatch = useDispatch()
 
   return (

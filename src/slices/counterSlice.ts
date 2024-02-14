@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
 export interface CounterState {
   value: number
@@ -8,6 +9,8 @@ export interface CounterState {
 const initialState: CounterState = {
   value: 0,
 }
+
+export const getCount = (state: RootState) => state.counter.value
 
 export const counterSlice = createSlice({
   name: 'counter',
