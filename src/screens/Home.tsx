@@ -1,22 +1,37 @@
 import React from 'react'
-import { View, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Counter from '../components/Counter'
-import type { HomeProps } from '../navigation/types';
+import type { HomeScreenProps } from '../navigation/types';
 
-const HomeScreen = ({ navigation }: HomeProps) => {
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
     console.log("HomeScreen")
 
     return (
-        <View>
-            <Button
-                title="Go to Jane's profile"
-                onPress={() =>
-                    navigation.navigate('Profile', { name: 'Jane' })
-                }
-            />
-            <Counter />
+        <View style={styles.container}>
+            <View style={styles.counterContainer}>
+                <Text style={styles.counterText}>Counter Comp</Text>
+                <Counter />
+            </View>
         </View>
     );
 };
 
-export default HomeScreen;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    counterContainer: {
+        borderColor: 'black',
+        borderWidth: 1,
+        margin: 20
+    },
+    counterText: {
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.2,
+        textAlign: 'center',
+        marginBottom: 20
+    }
+})
+
+export default React.memo(HomeScreen);

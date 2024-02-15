@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native'
-import { SplashProps } from '../navigation/types';
-import { HOME } from '../constants/screens'
+import { SplashScreenProps } from '../navigation/types';
+import { LOGIN } from '../constants/screens'
 
-const Splash = ({ navigation }: SplashProps) => {
-
+const Splash = ({ navigation }: SplashScreenProps) => {
     useEffect(() => {
-        setTimeout(() => navigation.navigate(HOME), 2000)
+        setTimeout(() => navigation.navigate(LOGIN), 2000)
     }, [])
 
     return (
@@ -19,9 +18,6 @@ const Splash = ({ navigation }: SplashProps) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
-        borderColor: 'red', borderWidth: 1,
-
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -30,4 +26,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Splash;
+export default React.memo(Splash);

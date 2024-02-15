@@ -2,15 +2,18 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import type { RootStackParamList } from './types'
+
+import SplashScreen from '../screens/Splash';
+import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
-import SplashScreen from '../screens/Splash';
 
 // import AppHeader from '../components/AppHeader';
 
 import {
-  SPLASH, HOME, PROFILE
+  SPLASH, LOGIN, HOME, PROFILE
 } from '../constants/screens'
+import ProfileButton from '../components/ProfileButton';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,7 +22,7 @@ export const NavigationStack = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={SPLASH} 
         // screenOptions={{
-        //   header: AppHeader
+        //   header: () => <AppHeader />
         // }}
       >
       <Stack.Screen
@@ -30,11 +33,30 @@ export const NavigationStack = () => {
           }}
         />
         <Stack.Screen
+          name={LOGIN}
+          component={LoginScreen}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
           name={HOME}
           component={HomeScreen}
-          options={{title: 'Welcome'}}
+          options={{
+            title: 'Home', 
+            headerBackVisible: false, 
+            headerTitleAlign: 'center',
+            headerRight: () => <ProfileButton />
+          }}
         />
-        <Stack.Screen name={PROFILE} component={ProfileScreen} />
+        <Stack.Screen 
+          name={PROFILE} 
+          component={ProfileScreen} 
+          options={{
+            title: 'Profile', 
+            headerTitleAlign: 'center',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

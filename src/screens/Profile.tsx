@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text } from "react-native";
-import type { ProfileProps } from '../navigation/types';
+import type { ProfileScreenProps } from '../navigation/types';
 
-const ProfileScreen = ({ route }: ProfileProps) => {
+const ProfileScreen = ({ route }: ProfileScreenProps) => {
     console.log("ProfileScreen")
     return (
         <View>
@@ -11,4 +11,4 @@ const ProfileScreen = ({ route }: ProfileProps) => {
     );
 };
 
-export default ProfileScreen;
+export default React.memo(ProfileScreen);
