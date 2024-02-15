@@ -6,7 +6,7 @@ import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
 import SplashScreen from '../screens/Splash';
 
-import AppHeader from '../components/AppHeader';
+// import AppHeader from '../components/AppHeader';
 
 import {
   SPLASH, HOME, PROFILE
@@ -17,9 +17,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const NavigationStack = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={SPLASH} screenOptions={{
-        header: AppHeader
-      }}>
+      <Stack.Navigator initialRouteName={SPLASH} 
+        // screenOptions={{
+        //   header: AppHeader
+        // }}
+      >
       <Stack.Screen
           name={SPLASH}
           component={SplashScreen}
