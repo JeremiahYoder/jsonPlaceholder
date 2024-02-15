@@ -5,7 +5,7 @@ import { SplashScreenProps } from '../navigation/types';
 
 const Splash = ({ navigation }: SplashScreenProps): React.JSX.Element => {
     useEffect(() => {
-        setTimeout(() => navigation.navigate(LOGIN), 2000)
+        setTimeout(() => navigation.replace(LOGIN), 2000)
     }, [])
 
     return (

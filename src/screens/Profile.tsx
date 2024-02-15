@@ -1,13 +1,22 @@
-import React, { useMemo } from 'react'
-import { View, Text, StyleSheet } from "react-native";
+import React, { useCallback, useMemo } from 'react'
+import { View, Text, StyleSheet, Button } from "react-native";
 import { ProfileScreenProps } from '../navigation/types';
+import { LOGIN } from '../constants/screens';
 
-const ProfileScreen = ({ route }: ProfileScreenProps): React.JSX.Element => {
+const ProfileScreen = ({ navigation, route }: ProfileScreenProps): React.JSX.Element => {
     const Name = useMemo(() => route?.params?.name, [route])
+
+    const logout = useCallback(() => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: LOGIN }]
+        })
+    }, [])
 
     return (
         <View style={styles.container}>
             <Text>This is {Name}'s profile</Text>
+            <Button title='Logout' onPress={logout} />
         </View>
     );
 };

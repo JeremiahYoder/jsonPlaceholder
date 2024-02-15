@@ -14,7 +14,7 @@ const Login = ({ navigation }: LoginScreenProps): React.JSX.Element => {
             return
         }
 
-        navigation.navigate(HOME)
+        navigation.replace(HOME)
     }, [username, password])
 
     return (

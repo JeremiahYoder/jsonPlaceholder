@@ -3,17 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import type { RootStackParamList } from './types'
 
+import ProfileButton from '../components/ProfileButton';
+
+import { SPLASH, LOGIN, HOME, PROFILE } from '../constants/screens'
+
 import SplashScreen from '../screens/Splash';
 import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
-
-// import AppHeader from '../components/AppHeader';
-
-import {
-  SPLASH, LOGIN, HOME, PROFILE
-} from '../constants/screens'
-import ProfileButton from '../components/ProfileButton';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
