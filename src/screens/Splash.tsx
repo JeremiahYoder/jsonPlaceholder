@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native'
-import { SplashScreenProps } from '../navigation/types';
 import { LOGIN } from '../constants/screens'
+import { SplashScreenProps } from '../navigation/types';
 
-const Splash = ({ navigation }: SplashScreenProps) => {
+const Splash = ({ navigation }: SplashScreenProps): React.JSX.Element => {
     useEffect(() => {
         setTimeout(() => navigation.navigate(LOGIN), 2000)
     }, [])
@@ -20,9 +20,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    content: {
-
     }
 })
 

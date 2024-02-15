@@ -1,11 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet } from "react-native";
 import Counter from '../components/Counter'
-import type { HomeScreenProps } from '../navigation/types';
+import { HomeScreenProps } from '../navigation/types';
 
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+const HomeScreen = (_props: HomeScreenProps): React.JSX.Element => {
     console.log("HomeScreen")
-
     return (
         <View style={styles.container}>
             <View style={styles.counterContainer}>
