@@ -10,8 +10,6 @@ const initialState: CounterState = {
   value: 0,
 }
 
-export const getCount = (state: RootState) => state.counter.value
-
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,

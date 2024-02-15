@@ -4,7 +4,14 @@ import logger from './logger'
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: getDefaultMiddleware => 
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: {
+          otherValue: 42
+        }
+      }
+    }).concat(logger),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

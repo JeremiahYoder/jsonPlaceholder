@@ -1,29 +1,32 @@
 import React from 'react'
 import { View, Button, Text } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { getCount, decrement, increment } from '../../slices/counterSlice'
+import { getCount } from '../../selectors/counter'
+import useAppDispatch from '../../hooks/useAppDispatch'
+import useAppSelector from '../../hooks/useAppSelector'
+
+import { incrementCounter, decrementCounter } from '../../thunks/counter'
 
 function Counter() {
-  const count = useSelector(getCount)
-  const dispatch = useDispatch()
+  const count = useAppSelector(getCount)
+  const dispatch = useAppDispatch()
 
   return (
     <View>
       <View>
         <Button
           title='Increment'
-          onPress={() => dispatch(increment())}
+          onPress={() => dispatch(incrementCounter())}
         />
 
         <View>
           <Text>
             {count}
           </Text>
-
         </View>
+
         <Button
           title='Decrement'
-          onPress={() => dispatch(decrement())}
+          onPress={() => dispatch(decrementCounter())}
         />
       </View>
     </View>
