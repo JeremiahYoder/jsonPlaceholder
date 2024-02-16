@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationStack } from './navigation'
+import { AppNavigator } from './navigation'
 import { Provider } from 'react-redux'
 import { store } from './store'
 
@@ -7,7 +7,7 @@ function App(): React.JSX.Element {
   console.log("App.tsx")
   return (
     <Provider store={store}>
-      <NavigationStack />
+      <AppNavigator />
     </Provider>
   );
 }

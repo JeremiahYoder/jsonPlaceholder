@@ -1,22 +1,22 @@
 import React, { useCallback, useMemo } from 'react'
 import { View, Text, StyleSheet, Button } from "react-native";
 import { ProfileScreenProps } from '../navigation/types';
-import { LOGIN } from '../constants/screens';
+import useAppDispatch from '../hooks/useAppDispatch';
+import { logout } from '../slices/sessionSlice';
 
-const ProfileScreen = ({ navigation, route }: ProfileScreenProps): React.JSX.Element => {
+const ProfileScreen = ({ route }: ProfileScreenProps): React.JSX.Element => {
+    const dispatch = useAppDispatch()
+
     const Name = useMemo(() => route?.params?.name, [route])
 
-    const logout = useCallback(() => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: LOGIN }]
-        })
+    const onPressLogout = useCallback(() => {
+        dispatch(logout())
     }, [])
 
     return (
         <View style={styles.container}>
             <Text>This is {Name}'s profile</Text>
-            <Button title='Logout' onPress={logout} />
+            <Button title='Logout' onPress={onPressLogout} />
         </View>
     );
 };
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default React.memo(ProfileScreen);
+export default ProfileScreen;

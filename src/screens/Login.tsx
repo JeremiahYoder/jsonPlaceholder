@@ -2,9 +2,12 @@ import React, { useCallback, useState } from 'react'
 import { View, Button, StyleSheet, Alert } from 'react-native'
 import Input from '../components/Input'
 import { LoginScreenProps } from '../navigation/types'
-import { HOME } from '../constants/screens'
+import useAppDispatch from '../hooks/useAppDispatch'
+import { login } from '../slices/sessionSlice'
 
-const Login = ({ navigation }: LoginScreenProps): React.JSX.Element => {
+const Login = (_props: LoginScreenProps): React.JSX.Element => {
+    const dispatch = useAppDispatch()
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -14,7 +17,7 @@ const Login = ({ navigation }: LoginScreenProps): React.JSX.Element => {
             return
         }
 
-        navigation.replace(HOME)
+        dispatch(login())
     }, [username, password])
 
     return (
@@ -40,4 +43,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default React.memo(Login)
+export default Login
