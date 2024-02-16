@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native'
-import { LOGIN } from '../constants/screens'
 import { SplashScreenProps } from '../navigation/types';
+import SafeAreaView from '../components/SafeAreaView';
+import { LOGIN } from '../constants/screens'
 
 const Splash = ({ navigation }: SplashScreenProps): React.JSX.Element => {
     useEffect(() => {
@@ -9,9 +10,11 @@ const Splash = ({ navigation }: SplashScreenProps): React.JSX.Element => {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <Text>SLASH SCREEN</Text>
-        </View>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Text>SLASH SCREEN</Text>
+            </View>
+        </SafeAreaView>
     )
 }
 

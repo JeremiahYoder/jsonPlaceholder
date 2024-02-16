@@ -8,8 +8,9 @@ const Input = (props: TextInputProps) => {
 const styles = StyleSheet.create({
     input: {
         borderColor: 'black',
-        borderWidth: 1,
-        backgroundColor: 'white'
+        borderWidth: 0.75,
+        backgroundColor: 'white',
+        borderRadius: 5
     }
 })
 

@@ -1,17 +1,20 @@
 import React from 'react'
 import { View, Text, StyleSheet } from "react-native";
-import Counter from '../components/Counter'
 import { HomeScreenProps } from '../navigation/types';
+import SafeAreaView from '../components/SafeAreaView';
+import Counter from '../components/Counter'
 
 const HomeScreen = (_props: HomeScreenProps): React.JSX.Element => {
     console.log("HomeScreen")
     return (
-        <View style={styles.container}>
-            <View style={styles.counterContainer}>
-                <Text style={styles.counterText}>Counter Comp</Text>
-                <Counter />
+        <SafeAreaView>
+            <View style={styles.container}>
+                <View style={styles.counterContainer}>
+                    <Text style={styles.counterText}>Counter Comp</Text>
+                    <Counter />
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

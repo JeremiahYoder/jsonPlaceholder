@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { ProfileScreenProps } from '../navigation/types';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { logout } from '../slices/sessionSlice';
+import SafeAreaView from '../components/SafeAreaView';
 
 const ProfileScreen = ({ route }: ProfileScreenProps): React.JSX.Element => {
     const dispatch = useAppDispatch()
@@ -14,10 +15,12 @@ const ProfileScreen = ({ route }: ProfileScreenProps): React.JSX.Element => {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <Text>This is {Name}'s profile</Text>
-            <Button title='Logout' onPress={onPressLogout} />
-        </View>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Text>This is {Name}'s profile</Text>
+                <Button title='Logout' onPress={onPressLogout} />
+            </View>
+        </SafeAreaView>
     );
 };
 
