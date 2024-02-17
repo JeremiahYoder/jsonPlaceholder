@@ -12,6 +12,7 @@ import SplashScreen from '../screens/Splash';
 import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
+import UsersScreen from '../screens/Users'
 import useAppSelector from '../hooks/useAppSelector';
 import { isAuthenticated } from '../selectors/session';
 
@@ -71,7 +72,8 @@ const BottomTab = createBottomTabNavigator();
 export const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator screenOptions={{ headerShown: false }}>
-      <BottomTab.Screen name='AuthStack' component={AuthStackNavigator} />
+      <BottomTab.Screen name='Dashboard' component={AuthStackNavigator} />
+      <BottomTab.Screen name='Users' component={UsersScreen} />
     </BottomTab.Navigator>
   );
 }
