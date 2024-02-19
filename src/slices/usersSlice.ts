@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IUser, IUserResponse, IUsersResponse } from '../api/users'
+import { IUser } from '../api/users'
 
 export interface IUsersState {
     isFetching: boolean;
@@ -20,7 +20,6 @@ export const usersSlice = createSlice({
             state.isFetching = action.payload
         },
         loadUsers: (state, action: PayloadAction<IUser[]>) => {
-            console.log("[usersSlice][loadUsers]action", action.payload)
             state.users = action.payload,
             state.isFetching = false
         },
