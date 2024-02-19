@@ -1,6 +1,6 @@
-import { getUsers, getUserById, IUser } from '../api/users'
+import { getUsers, getUserById } from '../api/users'
 import { users } from '../selectors/users'
-import { loadUsers, loadUser, clearUsers, resetUsers, setLoading } from '../slices/usersSlice'
+import { loadUsers, loadUser, clearUsers, resetUsers } from '../slices/usersSlice'
 import { AppDispatch, RootState } from '../store'
 
 export function loadUsersData() {
@@ -9,26 +9,22 @@ export function loadUsersData() {
         if (currUsers?.length) return
 
         getUsers().then(data => {
-            console.log('[loadUsersData][DISPATCH][getUsers][then]data', data)
-            if (data) {
-                dispatch(loadUsers(data))
-            }
+            if (data) dispatch(loadUsers(data))
         })
     }
 }
 
-export function loadUserDataById(id: number = 1) {
+export function loadUserDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currUsers = users(getState())
-        if (currUsers.findIndex(user => user.id === id) !== -1) {
-            return
-        }
+        if (currUsers.findIndex(user => user.id === id) !== -1) return
 
         getUserById(id.toString()).then(data => {
-            console.log('[loadUserDataById][DISPATCH][getUserById][then]data', data)
-            if (data) {
-                dispatch(loadUser(data))
-            }
+            if (data) dispatch(loadUser(data))
         })
     }
 }
+
+export const resetUserData = () => (dispatch: AppDispatch) => dispatch(resetUsers())
+
+export const clearUserData = () => (dispatch: AppDispatch) => dispatch(clearUsers())

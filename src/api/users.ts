@@ -27,7 +27,7 @@ export interface IUser {
     }
 }
 
-export interface IUsersResponse extends IRequestResponse<Array<IUser>> {}
+export interface IUsersResponse extends IRequestResponse<IUser[]> {}
 export interface IUserResponse extends IRequestResponse<IUser> {}
 
 export const getUsers = (): Promise<IUsersResponse> => {

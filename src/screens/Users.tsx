@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { users } from '../selectors/users'
@@ -25,14 +25,14 @@ const Users = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList 
                 data={Users}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
             />
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -40,14 +40,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+        // borderColor: 'yellow', borderWidth: 1
     },
     contentContainerStyle: {
         borderColor: 'blue',
         borderWidth: 1
     },
     flatlistStyle: {
-        width: '100%'
+        flexGrow: 1,
+        // flex: 1,
+        width: '100%',
+        height: '100%'
     },
     row: { 
         borderColor: 'red', 

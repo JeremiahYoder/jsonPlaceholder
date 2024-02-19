@@ -13,10 +13,10 @@ const Login = (_props: LoginScreenProps): React.JSX.Element => {
     const [password, setPassword] = useState('')
 
     const onPressLogin = useCallback(() => {
-        if (!username.length || !password.length) {
-            Alert.alert('Enter username and/or password')
-            return
-        }
+        // if (!username.length || !password.length) {
+        //     Alert.alert('Enter username and/or password')
+        //     return
+        // }
 
         dispatch(login())
     }, [username, password])

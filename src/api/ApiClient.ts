@@ -11,9 +11,9 @@ const client = axios.create({
 export interface IRequestConfig extends AxiosRequestConfig<any> {}
 export interface IRequestResponse<T> extends AxiosResponse<T, any> {}
 
-const request = function(options: IRequestConfig): Promise<IRequestResponse<any>> {
+const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T>> {
 
-    const onSuccess = function(response: AxiosResponse<any, any>) {
+    const onSuccess = function<T>(response: IRequestResponse<T>) {
         console.debug('Request Successful', response);
         return response.data;
     }
