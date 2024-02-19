@@ -9,9 +9,9 @@ const client = axios.create({
 })
 
 export interface IRequestConfig extends AxiosRequestConfig<any> {}
-export interface IRequestResponse<T> extends AxiosResponse<any, any> {}
+export interface IRequestResponse<T> extends AxiosResponse<T, any> {}
 
-const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T>> {
+const request = function(options: IRequestConfig): Promise<IRequestResponse<any>> {
 
     const onSuccess = function(response: AxiosResponse<any, any>) {
         console.debug('Request Successful', response);
@@ -38,7 +38,7 @@ const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T
 }
 
 const requestSuccessHandler = (config) => {
-    if (DEBUG) { console.info("[requestSuccessHandler]", 'HANDLED') }
+    if (DEBUG) { console.info("[requestSuccessHandler]", config) }
     return config;
 }
 const requestErrorHandler = (error) => {
@@ -48,7 +48,7 @@ const requestErrorHandler = (error) => {
 axios.interceptors.request.use(requestSuccessHandler, requestErrorHandler);
 
 const responseSuccessHandler = (response) => {
-    if (DEBUG) { console.info("[responseSuccessHandler]", 'HANDLED') }
+    if (DEBUG) { console.info("[responseSuccessHandler]", response) }
     if(response.status === 401) {
         Alert.alert("You are not authorized");
     }
