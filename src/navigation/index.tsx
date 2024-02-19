@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RootStackParamList } from './types'
 
@@ -45,26 +46,40 @@ const FrontStackNavigator = () => {
 // }
 
 const AuthStackNavigator = () => {
-  return <Stack.Navigator initialRouteName={HOME} key={'AuthStack'}>
-    <Stack.Screen
-      name={HOME}
-      component={HomeScreen}
-      options={{
-        title: 'Home',
-        headerBackVisible: false,
-        headerTitleAlign: 'center',
-        headerRight: () => <ProfileButton />
+  return (
+    <Stack.Navigator 
+      key={'AuthStack'} 
+      initialRouteName={HOME} 
+      screenOptions={{
+        headerShown: false
       }}
-    />
-    <Stack.Screen
-      name={PROFILE}
-      component={ProfileScreen}
-      options={{
-        title: 'Profile',
-        headerTitleAlign: 'center',
-      }}
-    />
-  </Stack.Navigator>
+    >
+      <Stack.Screen
+        name={HOME}
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        name={PROFILE}
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+const Drawer = createDrawerNavigator();
+
+export const MenuDrawer = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name='Home' component={HomeScreen} />
+      <Drawer.Screen name='Users' component={UsersScreen} />
+      {/* <BottomTab.Screen name='Profile' component={ProfileScreen} /> */}
+    </Drawer.Navigator>
+  )
 }
 
 const BottomTab = createBottomTabNavigator();
@@ -82,7 +97,7 @@ export const AppNavigator = () => {
   const isAuth = useAppSelector(isAuthenticated)
 
   const CurrentNavigator = React.useMemo(() => {
-    if (isAuth) return <BottomTabNavigator />
+    if (isAuth) return <MenuDrawer />
     return <FrontStackNavigator />
   }, [isAuth])
 

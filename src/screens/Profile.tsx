@@ -5,10 +5,10 @@ import useAppDispatch from '../hooks/useAppDispatch';
 import { logout } from '../slices/sessionSlice';
 import SafeAreaView from '../components/SafeAreaView';
 
-const ProfileScreen = ({ route }: ProfileScreenProps): React.JSX.Element => {
+const ProfileScreen = (): React.JSX.Element => {
     const dispatch = useAppDispatch()
 
-    const Name = useMemo(() => route?.params?.name, [route])
+    const Name = useMemo(() => 'Jeremiah', [])
 
     const onPressLogout = useCallback(() => {
         dispatch(logout())
