@@ -8,7 +8,7 @@ export interface IPost {
     body: string;
 }
 
-export interface IPostsResponse extends IRequestResponse<Array<IPost>> {}
+export interface IPostsResponse extends IRequestResponse<IPost[]> {}
 export interface IPostResponse extends IRequestResponse<IPost> {}
 
 export const getPosts = (): Promise<IPostsResponse> => {

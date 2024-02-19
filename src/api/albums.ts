@@ -6,7 +6,7 @@ export interface IAlbum {
     title: string;
 }
 
-export interface IAlbumsResponse extends IRequestResponse<Array<IAlbum>> {}
+export interface IAlbumsResponse extends IRequestResponse<IAlbum[]> {}
 export interface IAlbumResponse extends IRequestResponse<IAlbum> {}
 
 export const getAlbums = (): Promise<IAlbumsResponse> => {

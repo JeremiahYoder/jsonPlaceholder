@@ -7,7 +7,7 @@ export interface ITodo {
     completed: boolean;
 }
 
-export interface ITodosResponse extends IRequestResponse<Array<ITodo>> {}
+export interface ITodosResponse extends IRequestResponse<ITodo[]> {}
 export interface ITodoResponse extends IRequestResponse<ITodo> {}
 
 export const getTodos = (): Promise<ITodosResponse> => {

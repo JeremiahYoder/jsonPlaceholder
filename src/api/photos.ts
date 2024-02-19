@@ -8,7 +8,7 @@ export interface IPhoto {
     thumbnailUrl: string
 }
 
-export interface IPhotosResponse extends IRequestResponse<Array<IPhoto>> {}
+export interface IPhotosResponse extends IRequestResponse<IPhoto[]> {}
 export interface IPhotoResponse extends IRequestResponse<IPhoto> {}
 
 export const getPhotos = (): Promise<IPhotosResponse> => {

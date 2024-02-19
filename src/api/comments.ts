@@ -8,7 +8,7 @@ export interface IComment {
     body: string;
 }
 
-export interface ICommentsResponse extends IRequestResponse<Array<IComment>> {}
+export interface ICommentsResponse extends IRequestResponse<IComment[]> {}
 export interface ICommentResponse extends IRequestResponse<IComment> {}
 
 export const getComments = (): Promise<ICommentsResponse> => {
