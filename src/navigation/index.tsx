@@ -16,6 +16,7 @@ import ProfileScreen from '../screens/Profile'
 import UsersScreen from '../screens/Users'
 import useAppSelector from '../hooks/useAppSelector';
 import { isAuthenticated } from '../selectors/session';
+import { Text, View } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -75,9 +76,8 @@ const Drawer = createDrawerNavigator();
 export const MenuDrawer = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name='Home' component={HomeScreen} />
+      <Drawer.Screen name='Home' component={BottomTabNavigator} />
       <Drawer.Screen name='Users' component={UsersScreen} />
-      {/* <BottomTab.Screen name='Profile' component={ProfileScreen} /> */}
     </Drawer.Navigator>
   )
 }
@@ -87,8 +87,10 @@ const BottomTab = createBottomTabNavigator();
 export const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator screenOptions={{ headerShown: false }}>
-      <BottomTab.Screen name='Dashboard' component={AuthStackNavigator} />
-      <BottomTab.Screen name='Users' component={UsersScreen} />
+      <BottomTab.Screen name='Home' component={AuthStackNavigator} />
+      <BottomTab.Screen name='Option1' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option1</Text></View>} />
+      <BottomTab.Screen name='Option2' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option2</Text></View>} />
+      <BottomTab.Screen name='Option3' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option3</Text></View>} />
     </BottomTab.Navigator>
   );
 }
