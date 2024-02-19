@@ -6,8 +6,12 @@ import { AppDispatch, RootState } from '../store'
 export function loadUsersData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currUsers = users(getState())
-        if (currUsers?.length) return
+        if (currUsers?.length) {
+            console.log("[loadUsersData]", "USERS EXISTING")
+            return
+        }
 
+        console.log("[loadUsersData]", "LOADING NEW USERS")
         getUsers().then(data => {
             if (data) dispatch(loadUsers(data))
         })

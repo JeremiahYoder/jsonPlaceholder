@@ -1,15 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer';
 import logger from './logger'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from 'redux-persist';
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage: AsyncStorage,
+  blacklist: ['session']
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware => 
     getDefaultMiddleware({
-      thunk: {
-        extraArgument: {
-          otherValue: 42
-        }
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       }
     }).concat(logger),
 })
@@ -18,3 +27,5 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+
+export default store;
