@@ -1,11 +1,8 @@
 import React from 'react';
 import { AppNavigator } from './navigation'
 import { Provider } from 'react-redux'
-import store from './store'
+import { store, persistor } from './store'
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-
-let persistor = persistStore(store)
 
 function App(): React.JSX.Element {
   return (
