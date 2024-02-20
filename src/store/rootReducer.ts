@@ -7,6 +7,7 @@ import usersReducer from "../slices/usersSlice"
 import commentsReducer from '../slices/commentsSlice'
 import todosReducer from '../slices/todosSlice'
 import albumsReducer from '../slices/albumsSlice'
+import photosReducer from '../slices/photosSlice'
 
 export default combineReducers({
     counter: counterReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
     users: usersReducer,
     comments: commentsReducer,
     todos: todosReducer,
-    albums: albumsReducer
+    albums: albumsReducer,
+    photos: photosReducer
 });
