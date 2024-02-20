@@ -5,8 +5,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RootStackParamList } from './types'
 
-import ProfileButton from '../components/ProfileButton';
-
 import { SPLASH, LOGIN, HOME, PROFILE } from '../constants/screens'
 
 import SplashScreen from '../screens/Splash';
@@ -14,6 +12,8 @@ import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
 import UsersScreen from '../screens/Users'
+import PostsScreen from '../screens/Posts'
+
 import useAppSelector from '../hooks/useAppSelector';
 import { isAuthenticated } from '../selectors/session';
 import { Text, View } from 'react-native';
@@ -78,6 +78,7 @@ export const MenuDrawer = () => {
     <Drawer.Navigator>
       <Drawer.Screen name='Home' component={BottomTabNavigator} />
       <Drawer.Screen name='Users' component={UsersScreen} />
+      <Drawer.Screen name='Posts' component={PostsScreen} />
     </Drawer.Navigator>
   )
 }

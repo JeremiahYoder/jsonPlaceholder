@@ -1,3 +1,5 @@
 import { RootState } from "../store";
+import { ICounterState } from "../slices/counterSlice";
 
-export const getCount = (state: RootState) => state.counter.value
+export const counterState = (state: RootState): ICounterState => state.counter
+export const getCount = (state: RootState) => counterState(state).value

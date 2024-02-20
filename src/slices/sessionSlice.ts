@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface SessionState {
+export interface ISessionState {
   isAuth: boolean
 }
 
-const initialState: SessionState = {
+const initialState: ISessionState = {
   isAuth: false,
 }
 

@@ -1,25 +1,24 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { users } from '../selectors/users'
-import { loadUsersData } from '../thunks/users'
-import { IUser } from '../api/users'
+import { posts } from '../selectors/posts'
+import { loadPostsData } from '../thunks/posts'
+import { IPost } from '../api/posts'
 
-const Users = () => {
+const Posts = () => {
     const dispatch = useAppDispatch()
-    const Users = useAppSelector(users)
+    const Posts = useAppSelector(posts)
 
     useEffect(() => {
-        dispatch(loadUsersData())
+        dispatch(loadPostsData())
     }, [])
 
-    const renderItem = useCallback(({ item }: { item: IUser }) => {
+    const renderItem = useCallback(({ item }: { item: IPost }) => {
         return (
             <View key={item.id} style={styles.row}>
-                <Text>Name: {item.name}</Text>
-                <Text>Username: {item.username}</Text>
-                <Text>Email: {item.email}</Text>
+                <Text>{item.title}</Text>
+                <Text>{item.body}</Text>
             </View>
         )
     }, [])
@@ -28,7 +27,7 @@ const Users = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={(item) => item.id.toString()}
-                data={Users}
+                data={Posts}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
@@ -42,8 +41,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-
-        // borderColor: 'yellow', borderWidth: 1
     },
     contentContainerStyle: {
         borderColor: 'blue',
@@ -51,7 +48,6 @@ const styles = StyleSheet.create({
     },
     flatlistStyle: {
         flexGrow: 1,
-        // flex: 1,
         width: '100%',
         height: '100%'
     },
@@ -61,4 +57,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Users
+export default Posts;

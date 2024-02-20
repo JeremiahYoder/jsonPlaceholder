@@ -1,4 +1,6 @@
 import { RootState } from '../store';
+import { IUsersState } from '../slices/usersSlice';
 
-export const users = (state: RootState) => state.users.users ?? []
-export const isUsersLoading = (state: RootState) => state.users.isFetching
+export const userState = (state: RootState): IUsersState => state.users
+export const users = (state: RootState) => userState(state).users ?? []
+export const isUsersLoading = (state: RootState) => userState(state).isFetching

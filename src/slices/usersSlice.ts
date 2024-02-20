@@ -12,7 +12,7 @@ const initialState: IUsersState = {
     users: []
 }
 
-export const usersSlice = createSlice({
+const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
