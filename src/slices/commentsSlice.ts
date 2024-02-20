@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IComment } from "../api/comments";
 
-export interface ICommentState {
+export interface ICommentsState {
     isFetching: boolean
     comments: IComment[]
 }
 
-const initialState: ICommentState = {
+const initialState: ICommentsState = {
     isFetching: false,
     comments: []
 }
