@@ -1,25 +1,25 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { FlatList, StyleSheet, View, Text } from 'react-native'
+import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
+import { loadTodosData } from '../thunks/todos'
 import useAppSelector from '../hooks/useAppSelector'
-import { users } from '../selectors/users'
-import { loadUsersData } from '../thunks/users'
-import { IUser } from '../api/users'
+import { todos } from '../selectors/todos'
+import { ITodo } from '../api/todos'
 
-const Users = () => {
+const Todos = () => {
     const dispatch = useAppDispatch()
-    const Users = useAppSelector(users)
+    const Todos = useAppSelector(todos)
 
     useEffect(() => {
-        dispatch(loadUsersData())
+        dispatch(loadTodosData())
     }, [])
 
-    const renderItem = useCallback(({ item }: { item: IUser }) => {
+    const renderItem = useCallback(({ item } : { item: ITodo }) => {
         return (
             <View key={item.id} style={styles.row}>
-                <Text>Name: {item.name}</Text>
-                <Text>Username: {item.username}</Text>
-                <Text>Email: {item.email}</Text>
+                <Text>Todo: {item.title}</Text>
+                <Text>Is Complete: {item.completed}</Text>
             </View>
         )
     }, [])
@@ -28,7 +28,7 @@ const Users = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Users}
+                data={Todos}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
@@ -42,8 +42,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-
-        // borderColor: 'yellow', borderWidth: 1
     },
     contentContainerStyle: {
         borderColor: 'blue',
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     },
     flatlistStyle: {
         flexGrow: 1,
-        // flex: 1,
         width: '100%',
         height: '100%'
     },
@@ -61,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Users
+export default Todos;

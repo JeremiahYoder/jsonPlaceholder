@@ -1,25 +1,27 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { users } from '../selectors/users'
-import { loadUsersData } from '../thunks/users'
-import { IUser } from '../api/users'
 
-const Users = () => {
+import { IComment } from '../api/comments'
+import { comments } from '../selectors/comments'
+import { loadCommentsData } from '../thunks/comments'
+
+const Comments = () => {
     const dispatch = useAppDispatch()
-    const Users = useAppSelector(users)
+    const Comments = useAppSelector(comments)
 
     useEffect(() => {
-        dispatch(loadUsersData())
+        dispatch(loadCommentsData())
     }, [])
 
-    const renderItem = useCallback(({ item }: { item: IUser }) => {
+    const renderItem = useCallback(({ item } : { item: IComment }) => {
         return (
             <View key={item.id} style={styles.row}>
                 <Text>Name: {item.name}</Text>
-                <Text>Username: {item.username}</Text>
                 <Text>Email: {item.email}</Text>
+                <Text>{item.body}</Text>
             </View>
         )
     }, [])
@@ -28,7 +30,7 @@ const Users = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Users}
+                data={Comments}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
@@ -42,8 +44,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-
-        // borderColor: 'yellow', borderWidth: 1
     },
     contentContainerStyle: {
         borderColor: 'blue',
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     },
     flatlistStyle: {
         flexGrow: 1,
-        // flex: 1,
         width: '100%',
         height: '100%'
     },
@@ -61,4 +60,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Users
+export default Comments

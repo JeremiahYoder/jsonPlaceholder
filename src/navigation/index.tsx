@@ -13,6 +13,8 @@ import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
 import UsersScreen from '../screens/Users'
 import PostsScreen from '../screens/Posts'
+import CommentsScreen from '../screens/Comments'
+import TodosScreen from '../screens/Todos'
 
 import useAppSelector from '../hooks/useAppSelector';
 import { isAuthenticated } from '../selectors/session';
@@ -79,6 +81,8 @@ export const MenuDrawer = () => {
       <Drawer.Screen name='Home' component={BottomTabNavigator} />
       <Drawer.Screen name='Users' component={UsersScreen} />
       <Drawer.Screen name='Posts' component={PostsScreen} />
+      <Drawer.Screen name='Comments' component={CommentsScreen} />
+      <Drawer.Screen name='Todos' component={TodosScreen} />
     </Drawer.Navigator>
   )
 }
