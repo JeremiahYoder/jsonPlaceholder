@@ -4,29 +4,25 @@ import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { currentUser } from '../selectors/users'
-import { currentUsersPosts } from '../selectors/posts'
-import { currentUsersAlbums } from '../selectors/albums'
-import { currentUsersTodos } from '../selectors/todos'
+import { currentUserPosts } from '../selectors/posts'
+import { currentUserAlbums } from '../selectors/albums'
+import { currentUserTodos } from '../selectors/todos'
 import { unloadCurrentUser } from '../thunks/users'
 
 const User = () => {
     const dispatch = useAppDispatch()
-    const User = useAppSelector(currentUser)
-    const Posts = useAppSelector(currentUsersPosts)
-    const Albums = useAppSelector(currentUsersAlbums)
-    const Todos = useAppSelector(currentUsersTodos)
+    useEffect(() => () => { dispatch(unloadCurrentUser()) }, [])
 
-    useEffect(() => {
-        () => {
-            dispatch(unloadCurrentUser())
-        }
-    }, [])
+    const User = useAppSelector(currentUser)
+    const Posts = useAppSelector(currentUserPosts)
+    const Albums = useAppSelector(currentUserAlbums)
+    const Todos = useAppSelector(currentUserTodos)
 
     if (!User) {
         return (
             <SafeAreaView style={styles.container}>
                 <View>
-                    <Text style={{ fontWeight: 'bold' }}>
+                    <Text style={styles.title}>
                         No User Loaded
                     </Text>
                 </View>
