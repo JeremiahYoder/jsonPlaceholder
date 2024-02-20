@@ -15,6 +15,7 @@ import UsersScreen from '../screens/Users'
 import PostsScreen from '../screens/Posts'
 import CommentsScreen from '../screens/Comments'
 import TodosScreen from '../screens/Todos'
+import AlbumsScreen from '../screens/Albums'
 
 import useAppSelector from '../hooks/useAppSelector';
 import { isAuthenticated } from '../selectors/session';
@@ -83,6 +84,7 @@ export const MenuDrawer = () => {
       <Drawer.Screen name='Posts' component={PostsScreen} />
       <Drawer.Screen name='Comments' component={CommentsScreen} />
       <Drawer.Screen name='Todos' component={TodosScreen} />
+      <Drawer.Screen name='Albums' component={AlbumsScreen} />
     </Drawer.Navigator>
   )
 }
