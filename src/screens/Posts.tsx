@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { posts } from '../selectors/posts'
-import { loadPostsData } from '../thunks/posts'
+import { loadCurrentPost, loadPostsData } from '../thunks/posts'
 import { IPost } from '../api/posts'
+import useAppNavigation from '../hooks/useAppNavigation'
 
 const Posts = () => {
+    const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
     const Posts = useAppSelector(posts)
 
@@ -14,12 +16,19 @@ const Posts = () => {
         dispatch(loadPostsData())
     }, [])
 
+    const onPressItem = useCallback((id: number) => {
+        dispatch(loadCurrentPost(id))
+        navigation.navigate('Post')
+    }, [])
+
     const renderItem = useCallback(({ item }: { item: IPost }) => {
         return (
-            <View key={item.id} style={styles.row}>
-                <Text>{item.title}</Text>
-                <Text>{item.body}</Text>
-            </View>
+            <TouchableOpacity key={item.id} onPress={() => onPressItem(item.id)}>
+                <View style={styles.row}>
+                    <Text>{item.title}</Text>
+                    <Text>{item.body}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }, [])
 

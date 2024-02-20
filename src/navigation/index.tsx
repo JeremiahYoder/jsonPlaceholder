@@ -14,6 +14,7 @@ import ProfileScreen from '../screens/Profile'
 import UsersScreen from '../screens/Users'
 import UserScreen from '../screens/User'
 import PostsScreen from '../screens/Posts'
+import PostScreen from '../screens/Post'
 import CommentsScreen from '../screens/Comments'
 import TodosScreen from '../screens/Todos'
 import AlbumsScreen from '../screens/Albums'
@@ -54,6 +55,10 @@ const AuthStackNavigator = () => {
       <Stack.Screen
         name={'User'}
         component={UserScreen}
+      />
+      <Stack.Screen
+        name={'Post'}
+        component={PostScreen}
       />
       <Stack.Screen
         name={PROFILE}

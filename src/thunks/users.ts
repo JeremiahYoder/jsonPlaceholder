@@ -7,11 +7,9 @@ export function loadUsersData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currUsers = users(getState())
         if (currUsers?.length) {
-            console.log("[loadUsersData]", "USERS EXISTING")
             return
         }
 
-        console.log("[loadUsersData]", "LOADING NEW USERS")
         getUsers().then(data => {
             if (data) dispatch(loadUsers(data))
         })
