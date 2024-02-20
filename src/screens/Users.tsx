@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { users } from '../selectors/users'
-import { loadUsersData } from '../thunks/users'
+import { loadCurrentUser, loadUsersData } from '../thunks/users'
 import { IUser } from '../api/users'
+import useAppNavigation from '../hooks/useAppNavigation'
 
 const Users = () => {
+    const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
     const Users = useAppSelector(users)
 
@@ -14,13 +16,20 @@ const Users = () => {
         dispatch(loadUsersData())
     }, [])
 
+    const onPressItem = useCallback((id: number) => {
+        dispatch(loadCurrentUser(id))
+        navigation.navigate('User')
+    }, [])
+
     const renderItem = useCallback(({ item }: { item: IUser }) => {
         return (
-            <View key={item.id} style={styles.row}>
-                <Text>Name: {item.name}</Text>
-                <Text>Username: {item.username}</Text>
-                <Text>Email: {item.email}</Text>
-            </View>
+            <TouchableOpacity key={item.id} onPress={() => onPressItem(item.id)} style={styles.row}>
+                <View>
+                    <Text>Name: {item.name}</Text>
+                    <Text>Username: {item.username}</Text>
+                    <Text>Email: {item.email}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }, [])
 

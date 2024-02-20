@@ -4,11 +4,13 @@ import { IUser } from '../api/users'
 
 export interface IUsersState {
     isFetching: boolean;
+    currentUser: number | undefined;
     users: IUser[];
 }
 
 const initialState: IUsersState = {
     isFetching: false,
+    currentUser: undefined,
     users: []
 }
 
@@ -32,10 +34,28 @@ const usersSlice = createSlice({
         },
         clearUsers: (state) => {
             state.users = []
+        },
+        setCurrentUser: (state, action: PayloadAction<number>) => {
+            state.currentUser = action.payload
+        },
+        resetCurrentUser: (state) => {
+            state.currentUser = initialState.currentUser
+        },
+        clearCurrentUser: (state) => {
+            state.currentUser = undefined
         }
     }
 })
 
-export const { setLoading, loadUsers, loadUser, resetUsers, clearUsers } = usersSlice.actions
+export const { 
+    setLoading, 
+    loadUsers, 
+    loadUser, 
+    resetUsers, 
+    clearUsers,
+    setCurrentUser,
+    resetCurrentUser,
+    clearCurrentUser
+} = usersSlice.actions
 
 export default usersSlice.reducer

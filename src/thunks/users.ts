@@ -1,6 +1,6 @@
 import { getUsers, getUserById } from '../api/users'
 import { users } from '../selectors/users'
-import { loadUsers, loadUser, clearUsers, resetUsers } from '../slices/usersSlice'
+import { loadUsers, loadUser, clearUsers, resetUsers, setCurrentUser, resetCurrentUser } from '../slices/usersSlice'
 import { AppDispatch, RootState } from '../store'
 
 export function loadUsersData() {
@@ -32,3 +32,7 @@ export function loadUserDataById(id: number) {
 export const resetUserData = () => (dispatch: AppDispatch) => dispatch(resetUsers())
 
 export const clearUserData = () => (dispatch: AppDispatch) => dispatch(clearUsers())
+
+export const loadCurrentUser = (id: number) => (dispatch: AppDispatch) => dispatch(setCurrentUser(id))
+
+export const unloadCurrentUser = () => (dispatch: AppDispatch) => dispatch(resetCurrentUser())

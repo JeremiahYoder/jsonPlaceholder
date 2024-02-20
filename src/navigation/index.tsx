@@ -12,6 +12,7 @@ import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home'
 import ProfileScreen from '../screens/Profile'
 import UsersScreen from '../screens/Users'
+import UserScreen from '../screens/User'
 import PostsScreen from '../screens/Posts'
 import CommentsScreen from '../screens/Comments'
 import TodosScreen from '../screens/Todos'
@@ -37,19 +38,6 @@ const FrontStackNavigator = () => {
   </Stack.Navigator>
 }
 
-// const IntersititalStackNavigator = () => {
-//   return <Stack.Navigator initialRouteName={SPLASH} screenOptions={{ headerShown: false }}>
-//     <Stack.Screen
-//       name={SPLASH}
-//       component={SplashScreen}
-//     />
-//     <Stack.Screen
-//       name={LOGIN}
-//       component={LoginScreen}
-//     />
-//   </Stack.Navigator>
-// }
-
 const AuthStackNavigator = () => {
   return (
     <Stack.Navigator 
@@ -62,6 +50,10 @@ const AuthStackNavigator = () => {
       <Stack.Screen
         name={HOME}
         component={HomeScreen}
+      />
+      <Stack.Screen
+        name={'User'}
+        component={UserScreen}
       />
       <Stack.Screen
         name={PROFILE}
@@ -86,7 +78,7 @@ export const MenuDrawer = () => {
       <Drawer.Screen name='Comments' component={CommentsScreen} />
       <Drawer.Screen name='Todos' component={TodosScreen} />
       <Drawer.Screen name='Albums' component={AlbumsScreen} />
-      <Drawer.Screen name='Photos' component={PhotosScreen} />
+      <Drawer.Screen name='Photos' component={PhotosScreen}/>
     </Drawer.Navigator>
   )
 }
@@ -118,24 +110,3 @@ export const AppNavigator = () => {
     </NavigationContainer>
   );
 };
-
-
-
-
-// import { getHeaderTitle } from '@react-navigation/elements';
-
-// // ..
-
-// header: ({ navigation, route, options, back }) => {
-//   const title = getHeaderTitle(options, route.name);
-
-//   return (
-//     <MyHeader
-//       title={title}
-//       leftButton={
-//         back ? <MyBackButton onPress={navigation.goBack} /> : undefined
-//       }
-//       style={options.headerStyle}
-//     />
-//   );
-// };
