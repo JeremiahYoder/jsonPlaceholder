@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IComment } from "../api/comments";
+import { IComment } from "../types/comment";
 
 export interface ICommentsState {
     isFetching: boolean

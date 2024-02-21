@@ -4,8 +4,8 @@ import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { users } from '../selectors/users'
 import { loadCurrentUser, loadUsersData } from '../thunks/users'
-import { IUser } from '../api/users'
 import useAppNavigation from '../hooks/useAppNavigation'
+import { IUser } from '../types/user'
 
 const Users = () => {
     const navigation = useAppNavigation()

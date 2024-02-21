@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IPhoto } from "../api/photos";
+import { IPhoto } from "../types/photo";
 
 export interface IPhotosState {
     isFetching: boolean

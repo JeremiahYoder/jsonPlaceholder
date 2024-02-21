@@ -3,7 +3,7 @@ import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native
 import SafeAreaView from '../components/SafeAreaView'
 import useAppSelector from '../hooks/useAppSelector'
 import { albums } from '../selectors/albums'
-import { IAlbum } from '../api/albums'
+import { IAlbum } from '../types/album'
 import useAppDispatch from '../hooks/useAppDispatch'
 import { loadAlbumsData, loadCurrentAlbum } from '../thunks/albums'
 import useAppNavigation from '../hooks/useAppNavigation'

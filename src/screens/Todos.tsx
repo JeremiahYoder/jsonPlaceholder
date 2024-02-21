@@ -5,7 +5,7 @@ import useAppDispatch from '../hooks/useAppDispatch'
 import { loadTodosData } from '../thunks/todos'
 import useAppSelector from '../hooks/useAppSelector'
 import { todos } from '../selectors/todos'
-import { ITodo } from '../api/todos'
+import { ITodo } from '../types/todo'
 
 const Todos = () => {
     const dispatch = useAppDispatch()

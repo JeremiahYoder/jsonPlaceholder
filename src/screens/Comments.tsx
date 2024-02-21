@@ -4,7 +4,7 @@ import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 
-import { IComment } from '../api/comments'
+import { IComment } from '../types/comment'
 import { comments } from '../selectors/comments'
 import { loadCommentsData } from '../thunks/comments'
 

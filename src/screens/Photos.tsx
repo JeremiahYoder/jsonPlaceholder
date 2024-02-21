@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { Text, View, StyleSheet, FlatList } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
-import { IPhoto } from '../api/photos'
+import { IPhoto } from '../types/photo'
 import useAppSelector from '../hooks/useAppSelector'
 import { photos } from '../selectors/photos'
 import useAppDispatch from '../hooks/useAppDispatch'

@@ -1,14 +1,5 @@
-import request, { IRequestResponse } from './ApiClient'
-
-export interface ITodo {
-    userId: number;
-    id: number;
-    title: string;
-    completed: boolean;
-}
-
-export interface ITodosResponse extends IRequestResponse<ITodo[]> {}
-export interface ITodoResponse extends IRequestResponse<ITodo> {}
+import request from './ApiClient'
+import { ITodosResponse, ITodoResponse, ITodo } from '../types/todo'
 
 export const getTodos = (): Promise<ITodosResponse> => {
     return request({
@@ -56,10 +47,3 @@ export const removeTodoById = (id: string) => {
         method: 'DELETE'
     })
 }
-
-// {
-//     "userId": 1,
-//     "id": 1,
-//     "title": "delectus aut autem",
-//     "completed": false
-//   },

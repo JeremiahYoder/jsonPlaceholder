@@ -1,15 +1,5 @@
-import request, { IRequestResponse } from './ApiClient'
-
-export interface IPhoto {
-    albumId: number;
-    id: number;
-    title: string;
-    url: string;
-    thumbnailUrl: string
-}
-
-export interface IPhotosResponse extends IRequestResponse<IPhoto[]> {}
-export interface IPhotoResponse extends IRequestResponse<IPhoto> {}
+import request from './ApiClient'
+import { IPhotosResponse, IPhotoResponse, IPhoto } from '../types/photo'
 
 export const getPhotos = (): Promise<IPhotosResponse> => {
     return request({
@@ -55,11 +45,3 @@ export const removePhotoById = (id: string) => {
         method: 'DELETE'
     })
 }
-
-// {
-//     "albumId": 1,
-//     "id": 1,
-//     "title": "accusamus beatae ad facilis cum similique qui sunt",
-//     "url": "https://via.placeholder.com/600/92c952",
-//     "thumbnailUrl": "https://via.placeholder.com/150/92c952"
-//   },

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IUser } from '../api/users'
+import { IUser } from '../types/user'
 
 export interface IUsersState {
     isFetching: boolean;

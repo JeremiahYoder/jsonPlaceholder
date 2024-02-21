@@ -1,15 +1,6 @@
-import request, { IRequestResponse } from './ApiClient'
-import { ICommentsResponse } from './comments';
-
-export interface IPost {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
-}
-
-export interface IPostsResponse extends IRequestResponse<IPost[]> {}
-export interface IPostResponse extends IRequestResponse<IPost> {}
+import request from './ApiClient'
+import { IPostsResponse, IPostResponse, IPost } from '../types/post'
+import { ICommentsResponse } from '../types/comment'
 
 export const getPosts = (): Promise<IPostsResponse> => {
     return request({
@@ -62,11 +53,3 @@ export const removePostById = (id: string) => {
         method: 'DELETE'
     })
 }
-
-
-// {
-//     "userId": 1,
-//     "id": 1,
-//     "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-//     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-//   }

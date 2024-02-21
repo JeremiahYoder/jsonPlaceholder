@@ -1,15 +1,5 @@
-import request, { IRequestResponse } from './ApiClient'
-
-export interface IComment {
-    postId: number;
-    id: number;
-    name: string;
-    email: string;
-    body: string;
-}
-
-export interface ICommentsResponse extends IRequestResponse<IComment[]> {}
-export interface ICommentResponse extends IRequestResponse<IComment> {}
+import request from './ApiClient'
+import { ICommentsResponse, ICommentResponse, IComment } from '../types/comment'
 
 export const getComments = (): Promise<ICommentsResponse> => {
     return request({
@@ -62,12 +52,3 @@ export const removeCommentById = (id: string) => {
         method: 'DELETE'
     })
 }
-
-
-// {
-//     "postId": 1,
-//     "id": 1,
-//     "name": "id labore ex et quam laborum",
-//     "email": "Eliseo@gardner.biz",
-//     "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
-//   },

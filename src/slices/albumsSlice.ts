@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IAlbum } from "../api/albums";
+import { IAlbum } from "../types/album";
 
 export interface IAlbumState {
     isFetching: boolean

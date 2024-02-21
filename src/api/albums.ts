@@ -1,13 +1,5 @@
-import request, { IRequestResponse } from './ApiClient'
-
-export interface IAlbum {
-    userId: number;
-    id: number;
-    title: string;
-}
-
-export interface IAlbumsResponse extends IRequestResponse<IAlbum[]> {}
-export interface IAlbumResponse extends IRequestResponse<IAlbum> {}
+import request from './ApiClient'
+import { IAlbumsResponse, IAlbumResponse, IAlbum } from '../types/album'
 
 export const getAlbums = (): Promise<IAlbumsResponse> => {
     return request({
@@ -53,9 +45,3 @@ export const removeAlbumById = (id: string) => {
         method: 'DELETE'
     })
 }
-
-// {
-//     "userId": 1,
-//     "id": 1,
-//     "title": "quidem molestiae enim"
-//   },

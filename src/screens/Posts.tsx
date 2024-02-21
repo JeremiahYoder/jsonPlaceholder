@@ -4,7 +4,7 @@ import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { posts } from '../selectors/posts'
 import { loadCurrentPost, loadPostsData } from '../thunks/posts'
-import { IPost } from '../api/posts'
+import { IPost } from '../types/post'
 import useAppNavigation from '../hooks/useAppNavigation'
 
 const Posts = () => {

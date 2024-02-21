@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ITodo } from "../api/todos";
+import { ITodo } from "../types/todo";
 
 export interface ITodosState {
     isFetching: boolean;
