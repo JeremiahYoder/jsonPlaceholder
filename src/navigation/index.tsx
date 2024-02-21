@@ -40,7 +40,7 @@ const FrontStackNavigator = () => {
   </Stack.Navigator>
 }
 
-const AuthStackNavigator = () => {
+export const AuthStackNavigator = () => {
   return (
     <Stack.Navigator 
       key={'AuthStack'} 
