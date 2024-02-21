@@ -8,8 +8,8 @@ export function loadTodosData() {
         const currTodos = todos(getState())
         if (currTodos.length) return
 
-        getTodos().then(data => {
-            if (data) dispatch(loadTodos(data))
+        getTodos().then(response => {
+            if (response.data) dispatch(loadTodos(response.data))
         })
     }
 }
@@ -19,8 +19,8 @@ export function loadTodoDataById(id: number) {
         const currTodos = todos(getState())
         if (currTodos.findIndex(todo => todo.id === id) !== -1) return
 
-        getTodoById(id.toString()).then(data => {
-            if (data) dispatch(loadTodo(data))
+        getTodoById(id.toString()).then(response => {
+            if (response.data) dispatch(loadTodo(response.data))
         })
     }
 }

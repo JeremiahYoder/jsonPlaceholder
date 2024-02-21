@@ -8,8 +8,8 @@ export function loadPhotosData() {
         const currPhotos = photos(getState())
         if (currPhotos.length) return
 
-        getPhotos().then(data => {
-            if (data) dispatch(loadPhotos(data))
+        getPhotos().then(response => {
+            if (response.data) dispatch(loadPhotos(response.data))
         })
     }
 }
@@ -19,8 +19,8 @@ export function loadPhotoDataById(id: number) {
         const currPhotos = photos(getState())
         if (currPhotos.findIndex(photo => photo.id === id) !== -1) return
 
-        getPhotoById(id + '').then(data => {
-            if (data) dispatch(loadPhoto(data))
+        getPhotoById(id + '').then(response => {
+            if (response.data) dispatch(loadPhoto(response.data))
         })
     }
 }

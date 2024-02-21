@@ -10,8 +10,8 @@ export function loadPostsData() {
             return
         }
 
-        getPosts().then(data => {
-            if (data) dispatch(loadPosts(data))
+        getPosts().then(response => {
+            if (response.data) dispatch(loadPosts(response.data))
         })
     }
 }
@@ -21,8 +21,8 @@ export function loadPostDataById(id: number = 1) {
         const currPosts = posts(getState())
         if (currPosts.findIndex(user => user.id === id) !== -1) return
 
-        getPostById(id?.toString()).then(data => {
-            if (data) dispatch(loadPost(data))
+        getPostById(id?.toString()).then(response => {
+            if (response.data) dispatch(loadPost(response.data))
         })
     }
 }

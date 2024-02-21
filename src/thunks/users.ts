@@ -10,8 +10,8 @@ export function loadUsersData() {
             return
         }
 
-        getUsers().then(data => {
-            if (data) dispatch(loadUsers(data))
+        getUsers().then(response => {
+            if (response.data) dispatch(loadUsers(response.data))
         })
     }
 }
@@ -21,8 +21,8 @@ export function loadUserDataById(id: number) {
         const currUsers = users(getState())
         if (currUsers.findIndex(user => user.id === id) !== -1) return
 
-        getUserById(id.toString()).then(data => {
-            if (data) dispatch(loadUser(data))
+        getUserById(id.toString()).then(response => {
+            if (response.data) dispatch(loadUser(response.data))
         })
     }
 }

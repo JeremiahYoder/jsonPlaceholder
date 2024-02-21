@@ -8,8 +8,8 @@ export function loadCommentsData() {
         const currComments = comments(getState())
         if (currComments.length) return
 
-        getComments().then(data => {
-            if (data) dispatch(loadComments(data))
+        getComments().then(response => {
+            if (response.data) dispatch(loadComments(response.data))
         })
     }
 }

@@ -8,17 +8,18 @@ const client = axios.create({
     baseURL: BASE_URL
 })
 
-export interface IRequestConfig extends AxiosRequestConfig<any> {}
+export interface IRequestConfig<T> extends AxiosRequestConfig<T> {}
 export interface IRequestResponse<T> extends AxiosResponse<T, any> {}
+export interface IRequestError<T> extends AxiosError<T, any> {}
 
-const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T>> {
+const request = function<T>(options: IRequestConfig<T>): Promise<IRequestResponse<T>> {
 
-    const onSuccess = function(response: AxiosResponse) {
+    const onSuccess = function(response: IRequestResponse<T>) {
         console.debug('Request Successful', response);
-        return response.data;
+        return response; //.data ?? TODO: Previously returned data directly...didn't have access to response
     }
 
-    const onError = function(error: AxiosError) {
+    const onError = function(error: IRequestError<T>) {
         console.error("Request Failed", error.config)
 
         if (error.response) {
