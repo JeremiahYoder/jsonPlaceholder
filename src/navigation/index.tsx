@@ -18,6 +18,7 @@ import PostScreen from '../screens/Post'
 import CommentsScreen from '../screens/Comments'
 import TodosScreen from '../screens/Todos'
 import AlbumsScreen from '../screens/Albums'
+import AlbumScreen from '../screens/Album'
 import PhotosScreen from '../screens/Photos'
 
 import useAppSelector from '../hooks/useAppSelector';
@@ -59,6 +60,10 @@ const AuthStackNavigator = () => {
       <Stack.Screen
         name={'Post'}
         component={PostScreen}
+      />
+      <Stack.Screen
+        name={'Album'}
+        component={AlbumScreen}
       />
       <Stack.Screen
         name={PROFILE}

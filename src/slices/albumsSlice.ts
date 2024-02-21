@@ -4,11 +4,13 @@ import { IAlbum } from "../api/albums";
 
 export interface IAlbumState {
     isFetching: boolean
+    currentAlbum: number | undefined
     albums: IAlbum[]
 }
 
 const initialState: IAlbumState = {
     isFetching: false,
+    currentAlbum: undefined,
     albums: []
 }
 
@@ -32,10 +34,28 @@ const albumsSlice = createSlice({
         },
         clearAlbums: (state) => {
             state.albums = []
+        },
+        setCurrentAlbum: (state, action: PayloadAction<number>) => {
+            state.currentAlbum = action.payload
+        },
+        resetCurrentAlbum: (state) => {
+            state.currentAlbum = initialState.currentAlbum
+        },
+        clearCurrentAlbum: (state) => {
+            state.currentAlbum = undefined
         }
     }
 })
 
-export const { setLoading, loadAlbums, loadAlbum, resetAlbums, clearAlbums } = albumsSlice.actions
+export const { 
+    setLoading,
+    loadAlbums,
+    loadAlbum,
+    resetAlbums,
+    clearAlbums,
+    setCurrentAlbum,
+    resetCurrentAlbum,
+    clearCurrentAlbum
+} = albumsSlice.actions
 
 export default albumsSlice.reducer

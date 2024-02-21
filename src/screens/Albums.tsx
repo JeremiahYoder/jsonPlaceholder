@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect } from 'react'
-import { FlatList, View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppSelector from '../hooks/useAppSelector'
 import { albums } from '../selectors/albums'
 import { IAlbum } from '../api/albums'
 import useAppDispatch from '../hooks/useAppDispatch'
-import { loadAlbumsData } from '../thunks/albums'
+import { loadAlbumsData, loadCurrentAlbum } from '../thunks/albums'
+import useAppNavigation from '../hooks/useAppNavigation'
 
 const Albums = () => {
+    const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
     const Albums = useAppSelector(albums)
 
@@ -15,12 +17,19 @@ const Albums = () => {
         dispatch(loadAlbumsData())
     }, [])
 
+    const onItemPress = useCallback((id: number) => {
+        dispatch(loadCurrentAlbum(id))
+        navigation.navigate('Album')
+    }, [])
+
     const renderItem = useCallback(({ item } : { item: IAlbum }) => {
         return (
-            <View key={item.id} style={styles.row}>
-                <Text>ID: {item.id}</Text>
-                <Text>Title: {item.title}</Text>
-            </View>
+            <TouchableOpacity key={item.id} style={styles.row} onPress={() => onItemPress(item.id)}>
+                <View>
+                    <Text>ID: {item.id}</Text>
+                    <Text>Title: {item.title}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }, [])
 
@@ -30,6 +39,8 @@ const Albums = () => {
                 keyExtractor={item => item.id.toString()}
                 data={Albums}
                 renderItem={renderItem}
+                contentContainerStyle={styles.contentContainerStyle}
+                style={styles.flatlistStyle}
             />
         </SafeAreaView>
     )

@@ -6,7 +6,8 @@ export type RootStackParamList = {
     Home: undefined;
     Profile: { name: string };
     User: undefined;
-    Post: undefined
+    Post: undefined;
+    Album: undefined;
 };
 
 export type SplashScreenProps = NativeStackScreenProps<RootStackParamList, 'Splash'>;

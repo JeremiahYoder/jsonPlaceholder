@@ -1,17 +1,19 @@
 import { RootState } from '../store'
 import { IPostsState } from '../slices/postsSlice'
-import { userState } from './users'
+import { currentUserId } from './users'
 
 export const postState = (state: RootState): IPostsState => state.posts
 export const posts = (state: RootState) => postState(state).posts ?? []
 export const isPostsLoading = (state: RootState) => postState(state).isFetching
 
+export const currentPostId = (state: RootState) => postState(state).currentPost
+
 export const currentPost = (state: RootState) => {
-    let postId = postState(state).currentPost
+    let postId = currentPostId(state)
     return posts(state).find(post => post.id === postId)
 }
 
 export const currentUserPosts = (state: RootState) => {
-    const currentUserId = userState(state).currentUser
-    return posts(state).filter(post => post.userId === currentUserId)
+    const userId = currentUserId(state)
+    return posts(state).filter(post => post.userId === userId)
 }
