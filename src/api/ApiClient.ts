@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { BASE_URL } from '../constants/services'
 import { Alert } from 'react-native'
 
@@ -13,12 +13,12 @@ export interface IRequestResponse<T> extends AxiosResponse<T, any> {}
 
 const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T>> {
 
-    const onSuccess = function<T>(response: IRequestResponse<T>) {
+    const onSuccess = function(response: AxiosResponse) {
         console.debug('Request Successful', response);
         return response.data;
     }
 
-    const onError = function(error) {
+    const onError = function(error: AxiosError) {
         console.error("Request Failed", error.config)
 
         if (error.response) {
@@ -37,24 +37,24 @@ const request = function<T>(options: IRequestConfig): Promise<IRequestResponse<T
         .catch(onError)
 }
 
-const requestSuccessHandler = (config) => {
+const requestSuccessHandler = (config: any) => {
     if (DEBUG) { console.info("[requestSuccessHandler]", config) }
     return config;
 }
-const requestErrorHandler = (error) => {
+const requestErrorHandler = (error: AxiosError) => {
     if (DEBUG) { console.info("[requestErrorHandler]", error) }
     return Promise.reject(error);
 }
 axios.interceptors.request.use(requestSuccessHandler, requestErrorHandler);
 
-const responseSuccessHandler = (response) => {
+const responseSuccessHandler = (response: AxiosResponse) => {
     if (DEBUG) { console.info("[responseSuccessHandler]", response) }
     if(response.status === 401) {
         Alert.alert("You are not authorized");
     }
     return response;
 }
-const responseErrorHandler = (error) => {
+const responseErrorHandler = (error: AxiosError) => {
     if (DEBUG) { console.info("[responseErrorHandler]", error) }
     if (error.response && error.response.data) {
         return Promise.reject(error.response.data);
