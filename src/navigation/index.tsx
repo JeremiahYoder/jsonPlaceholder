@@ -95,13 +95,17 @@ export const MenuDrawer = () => {
 
 const BottomTab = createBottomTabNavigator();
 
+const Option1 = () => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option1</Text></View>
+const Option2 = () => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option1</Text></View>
+const Option3 = () => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option1</Text></View>
+
 export const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator screenOptions={{ headerShown: false }}>
       <BottomTab.Screen name='Home' component={AuthStackNavigator} />
-      <BottomTab.Screen name='Option1' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option1</Text></View>} />
-      <BottomTab.Screen name='Option2' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option2</Text></View>} />
-      <BottomTab.Screen name='Option3' component={() => <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}><Text>Option3</Text></View>} />
+      <BottomTab.Screen name='Option1' component={Option1} />
+      <BottomTab.Screen name='Option2' component={Option2} />
+      <BottomTab.Screen name='Option3' component={Option3} />
     </BottomTab.Navigator>
   );
 }
