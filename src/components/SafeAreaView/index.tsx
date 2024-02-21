@@ -1,7 +1,7 @@
 import React from 'react'
-import { SafeAreaView as RNSafeAreaView, StyleSheet } from 'react-native'
+import { SafeAreaView as RNSafeAreaView, ViewProps, StyleSheet } from 'react-native'
 
-const SafeAreaView = (props) => {
+const SafeAreaView = (props: ViewProps) => {
     return <RNSafeAreaView style={styles.default} {...props}>{props.children}</RNSafeAreaView>
 }
 
