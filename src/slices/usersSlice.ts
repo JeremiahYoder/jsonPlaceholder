@@ -22,7 +22,7 @@ const usersSlice = createSlice({
             state.isFetching = action.payload
         },
         loadUsers: (state, action: PayloadAction<IUser[]>) => {
-            state.users = action.payload,
+            state.users = [...state.users, ...action.payload],
             state.isFetching = false
         },
         loadUser: (state, action: PayloadAction<IUser>) => {

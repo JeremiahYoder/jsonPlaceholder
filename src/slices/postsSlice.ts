@@ -22,7 +22,7 @@ const postsSlice = createSlice({
             state.isFetching = action.payload
         },
         loadPosts: (state, action: PayloadAction<IPost[]>) => {
-            state.posts = action.payload,
+            state.posts = [...state.posts, ...action.payload],
             state.isFetching = false
         },
         loadPost: (state, action: PayloadAction<IPost>) => {

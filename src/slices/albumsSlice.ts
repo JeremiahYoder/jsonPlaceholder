@@ -22,7 +22,7 @@ const albumsSlice = createSlice({
             state.isFetching = action.payload
         },
         loadAlbums: (state, action: PayloadAction<IAlbum[]>) => {
-            state.albums = action.payload
+            state.albums = [...state.albums, ...action.payload]
             state.isFetching = false
         },
         loadAlbum: (state, action: PayloadAction<IAlbum>) => {

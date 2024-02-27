@@ -20,7 +20,7 @@ const photosSlice = createSlice({
             state.isFetching = action.payload
         },
         loadPhotos: (state, action: PayloadAction<IPhoto[]>) => {
-            state.photos = action.payload
+            state.photos = [...state.photos, ...action.payload]
             state.isFetching = false
         },
         loadPhoto: (state, action: PayloadAction<IPhoto>) => {

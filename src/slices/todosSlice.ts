@@ -20,7 +20,7 @@ const todosSlice = createSlice({
             state.isFetching = action.payload
         },
         loadTodos: (state, action: PayloadAction<ITodo[]>) => {
-            state.todos = action.payload,
+            state.todos = [...state.todos, ...action.payload],
             state.isFetching = false
         },
         loadTodo: (state, action: PayloadAction<ITodo>) => {

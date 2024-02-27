@@ -20,7 +20,7 @@ const commentsSlice = createSlice({
             state.isFetching = action.payload
         },
         loadComments: (state, action: PayloadAction<IComment[]>) => {
-            state.comments = action.payload
+            state.comments = [...state.comments, ...action.payload]
             state.isFetching = false
         },
         loadComment: (state, action: PayloadAction<IComment>) => {
