@@ -3,15 +3,23 @@ import { Text, View, StyleSheet } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { currentUser } from '../selectors/users'
+import { currentUser, userState } from '../selectors/users'
 import { currentUserPosts } from '../selectors/posts'
 import { currentUserAlbums } from '../selectors/albums'
 import { currentUserTodos } from '../selectors/todos'
-import { unloadCurrentUser } from '../thunks/users'
+import { loadUserDataById, unloadCurrentUser } from '../thunks/users'
 
 const User = () => {
     const dispatch = useAppDispatch()
     useEffect(() => () => { dispatch(unloadCurrentUser()) }, [])
+
+
+    useEffect(() => {
+        dispatch(loadUserDataById(1))
+    }, [])
+
+    const users2 = useAppSelector(userState).users2
+    console.log("state.users2[0]", users2)
 
     const User = useAppSelector(currentUser)
     const Posts = useAppSelector(currentUserPosts)

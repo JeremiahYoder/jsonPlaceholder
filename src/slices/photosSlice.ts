@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IPhoto } from "../types/photo";
+import { IDictionary } from "../types/globals";
 
 export interface IPhotosState {
     isFetching: boolean
     photos: IPhoto[]
+    photos2: IDictionary<IPhoto>
 }
 
 const initialState: IPhotosState = {
     isFetching: false,
-    photos: []
+    photos: [],
+    photos2: {}
 }
 
 const photosSlice = createSlice({
@@ -25,6 +28,7 @@ const photosSlice = createSlice({
         },
         loadPhoto: (state, action: PayloadAction<IPhoto>) => {
             state.photos = [...state.photos, action.payload]
+            state.photos2[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetPhotos: (state) => {

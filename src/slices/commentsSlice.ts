@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IComment } from "../types/comment";
+import { IDictionary } from "../types/globals";
 
 export interface ICommentsState {
     isFetching: boolean
     comments: IComment[]
+    comments2: IDictionary<IComment>
 }
 
 const initialState: ICommentsState = {
     isFetching: false,
-    comments: []
+    comments: [],
+    comments2: {}
 }
 
 const commentsSlice = createSlice({
@@ -25,6 +28,7 @@ const commentsSlice = createSlice({
         },
         loadComment: (state, action: PayloadAction<IComment>) => {
             state.comments = [...state.comments, action.payload]
+            state.comments2[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetComments:  (state) => {

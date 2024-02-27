@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IPost } from "../types/post";
+import { IDictionary } from "../types/globals";
 
 export interface IPostsState {
     isFetching: boolean;
     currentPost: number | undefined;
     posts: IPost[]
+    posts2: IDictionary<IPost>
 }
 
 const initialState: IPostsState = {
     isFetching: false,
     currentPost: undefined,
-    posts: []
+    posts: [],
+    posts2: {}
 }
 
 const postsSlice = createSlice({
@@ -22,11 +25,12 @@ const postsSlice = createSlice({
             state.isFetching = action.payload
         },
         loadPosts: (state, action: PayloadAction<IPost[]>) => {
-            state.posts = [...state.posts, ...action.payload],
+            state.posts = [...state.posts, ...action.payload]
             state.isFetching = false
         },
         loadPost: (state, action: PayloadAction<IPost>) => {
-            state.posts = [...state.posts, action.payload],
+            state.posts = [...state.posts, action.payload]
+            state.posts2[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetPosts: (state) => {

@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ITodo } from "../types/todo";
+import { IDictionary } from "../types/globals";
 
 export interface ITodosState {
     isFetching: boolean;
     todos: ITodo[]
+    todos2: IDictionary<ITodo>
 }
 
 const initialState: ITodosState = {
     isFetching: false,
-    todos: []
+    todos: [],
+    todos2: {}
 }
 
 const todosSlice = createSlice({
@@ -20,11 +23,12 @@ const todosSlice = createSlice({
             state.isFetching = action.payload
         },
         loadTodos: (state, action: PayloadAction<ITodo[]>) => {
-            state.todos = [...state.todos, ...action.payload],
+            state.todos = [...state.todos, ...action.payload]
             state.isFetching = false
         },
         loadTodo: (state, action: PayloadAction<ITodo>) => {
             state.todos = [...state.todos, action.payload]
+            state.todos2[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetTodos: (state) => {

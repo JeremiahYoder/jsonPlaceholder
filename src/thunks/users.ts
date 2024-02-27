@@ -18,11 +18,14 @@ export function loadUsersData() {
 
 export function loadUserDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
-        const currUsers = users(getState())
-        if (currUsers.findIndex(user => user.id === id) !== -1) return
+        // const currUsers = users(getState())
+        // if (currUsers.findIndex(user => user.id === id) !== -1) return
 
         getUserById(id.toString()).then(response => {
-            if (response.data) dispatch(loadUser(response.data))
+            if (response.data) {
+                console.log("[loadUserDataById]LOADING", 'response')
+                dispatch(loadUser(response.data))
+            }
         })
     }
 }

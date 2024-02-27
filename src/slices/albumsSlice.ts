@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IAlbum } from "../types/album";
+import { IDictionary } from "../types/globals";
 
 export interface IAlbumState {
     isFetching: boolean
     currentAlbum: number | undefined
     albums: IAlbum[]
+    albums2: IDictionary<IAlbum>
 }
 
 const initialState: IAlbumState = {
     isFetching: false,
     currentAlbum: undefined,
-    albums: []
+    albums: [],
+    albums2: {}
 }
 
 const albumsSlice = createSlice({
@@ -27,6 +30,7 @@ const albumsSlice = createSlice({
         },
         loadAlbum: (state, action: PayloadAction<IAlbum>) => {
             state.albums = [...state.albums, action.payload]
+            state.albums2[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetAlbums: (state) => {
