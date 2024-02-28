@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
+import Icon from '../components/Icon'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { currentUser, userState } from '../selectors/users'
+import { currentUser } from '../selectors/users'
 import { currentUserPosts } from '../selectors/posts'
 import { currentUserAlbums } from '../selectors/albums'
 import { currentUserTodos } from '../selectors/todos'
@@ -13,13 +14,12 @@ const User = () => {
     const dispatch = useAppDispatch()
     useEffect(() => () => { dispatch(unloadCurrentUser()) }, [])
 
-    const testState = useAppSelector(userState)
-    console.log("[User]testState", testState)
-
     const User = useAppSelector(currentUser)
     const Posts = useAppSelector(currentUserPosts)
     const Albums = useAppSelector(currentUserAlbums)
     const Todos = useAppSelector(currentUserTodos)
+
+    console.log("[User]User", User)
 
     if (!User) {
         return (
@@ -36,6 +36,9 @@ const User = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
+                <Icon name='home' size={24} color='red' />
+            </View>
+            <View style={{ borderColor: 'red', borderWidth: 1 }}>
                 <Text style={styles.title}>User Details</Text>
                 <Text>Name: {User.name}</Text>
                 <Text>Username: {User.username}</Text>

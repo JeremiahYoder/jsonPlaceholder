@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { IUser, IUsersState } from '../types/user'
+import { isEqual } from '../utils/lodash'
 
 const initialState: IUsersState = {
     isFetching: false,
@@ -17,7 +18,9 @@ const usersSlice = createSlice({
         },
         loadUsers: (state, action: PayloadAction<IUser[]>) => {
             for (const user of action.payload) {
-                state.users[user.id] = user
+                if (!isEqual(state.users[user.id], user)) {
+                    state.users[user.id] = user
+                }
             }
             state.isFetching = false
         },
