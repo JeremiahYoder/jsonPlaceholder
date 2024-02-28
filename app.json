@@ -1,4 +1,9 @@
 {
   "name": "BuildPlay",
-  "displayName": "BuildPlay"
+  "displayName": "BuildPlay",
+  "expo": {
+    "plugins": [
+      "expo-font"
+    ]
+  }
 }

@@ -234,3 +234,7 @@ CVS
 Backup[ ]of[ ]*.pages/
 Backup[ ]of[ ]*.key/
 Backup[ ]of[ ]*.numbers/
+# Expo
+.expo
+dist/
+web-build/
