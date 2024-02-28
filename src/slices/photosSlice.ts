@@ -24,6 +24,9 @@ const photosSlice = createSlice({
         },
         loadPhotos: (state, action: PayloadAction<IPhoto[]>) => {
             state.photos = [...state.photos, ...action.payload]
+            for (const photo of action.payload) {
+                state.photos2[photo.id] = photo
+            }
             state.isFetching = false
         },
         loadPhoto: (state, action: PayloadAction<IPhoto>) => {
@@ -33,9 +36,11 @@ const photosSlice = createSlice({
         },
         resetPhotos: (state) => {
             state.photos = initialState.photos
+            state.photos2 = initialState.photos2
         },
         clearPhotos: (state) => {
             state.photos = []
+            state.photos2 = {}
         }
     }
 })

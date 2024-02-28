@@ -1,20 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IUser } from '../types/user'
-import { IDictionary } from '../types/globals';
-
-export interface IUsersState {
-    isFetching: boolean;
-    currentUser: number | undefined;
-    users: IUser[];
-    users2: IDictionary<IUser>;
-}
+import { IUser, IUsersState } from '../types/user'
 
 const initialState: IUsersState = {
     isFetching: false,
     currentUser: undefined,
-    users: [],
-    users2: {}
+    users: {}
 }
 
 const usersSlice = createSlice({
@@ -25,19 +16,20 @@ const usersSlice = createSlice({
             state.isFetching = action.payload
         },
         loadUsers: (state, action: PayloadAction<IUser[]>) => {
-            state.users = [...state.users, ...action.payload]
+            for (const user of action.payload) {
+                state.users[user.id] = user
+            }
             state.isFetching = false
         },
         loadUser: (state, action: PayloadAction<IUser>) => {
-            state.users = [...state.users, action.payload]
-            state.users2[action.payload.id] = action.payload
+            state.users[action.payload.id] = action.payload
             state.isFetching = false
         },
         resetUsers: (state) => {
             state.users = initialState.users
         },
         clearUsers: (state) => {
-            state.users = []
+            state.users = {}
         },
         setCurrentUser: (state, action: PayloadAction<number>) => {
             state.currentUser = action.payload

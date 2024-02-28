@@ -1,4 +1,5 @@
 import { IRequestResponse } from "../api/ApiClient";
+import { IDictionary } from "./globals";
 
 export interface IUser {
     id: number;
@@ -26,3 +27,9 @@ export interface IUser {
 
 export interface IUsersResponse extends IRequestResponse<IUser[]> {}
 export interface IUserResponse extends IRequestResponse<IUser> {}
+
+export interface IUsersState {
+    isFetching: boolean;
+    currentUser: number | undefined;
+    users: IDictionary<IUser>;
+}

@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '../store'
 export function loadUsersData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currUsers = users(getState())
-        if (currUsers?.length) {
+        if (Object.keys(currUsers).length) {
             return
         }
 
@@ -18,12 +18,11 @@ export function loadUsersData() {
 
 export function loadUserDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
-        // const currUsers = users(getState())
-        // if (currUsers.findIndex(user => user.id === id) !== -1) return
+        const currUsers = users(getState())
+        if (currUsers[id]) return
 
         getUserById(id.toString()).then(response => {
             if (response.data) {
-                console.log("[loadUserDataById]LOADING", 'response')
                 dispatch(loadUser(response.data))
             }
         })

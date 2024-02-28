@@ -1,16 +1,18 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { users } from '../selectors/users'
-import { loadCurrentUser, loadUsersData } from '../thunks/users'
+import { userState } from '../selectors/users'
+import { loadCurrentUser, loadUsersData, resetUserData } from '../thunks/users'
 import useAppNavigation from '../hooks/useAppNavigation'
 import { IUser } from '../types/user'
 
 const Users = () => {
     const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
-    const Users = useAppSelector(users)
+
+    const Users = useAppSelector(userState).users
+    const UserList = useMemo<IUser[]>(() => Object.values(Users), [Users])
 
     useEffect(() => {
         dispatch(loadUsersData())
@@ -37,10 +39,17 @@ const Users = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Users}
+                data={UserList}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
+                ListHeaderComponent={() => (
+                    <View style={{ height: 100, width: 100 }}>
+                        <TouchableOpacity onPress={() => dispatch(resetUserData())}>
+                            <Text>Press Here</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
             />
         </SafeAreaView>
     )
@@ -51,8 +60,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-
-        // borderColor: 'yellow', borderWidth: 1
     },
     contentContainerStyle: {
         borderColor: 'blue',
@@ -60,7 +67,6 @@ const styles = StyleSheet.create({
     },
     flatlistStyle: {
         flexGrow: 1,
-        // flex: 1,
         width: '100%',
         height: '100%'
     },

@@ -24,6 +24,9 @@ const todosSlice = createSlice({
         },
         loadTodos: (state, action: PayloadAction<ITodo[]>) => {
             state.todos = [...state.todos, ...action.payload]
+            for (const todo of action.payload) {
+                state.todos2[todo.id] = todo
+            }
             state.isFetching = false
         },
         loadTodo: (state, action: PayloadAction<ITodo>) => {
@@ -33,9 +36,11 @@ const todosSlice = createSlice({
         },
         resetTodos: (state) => {
             state.todos = initialState.todos
+            state.todos2 = initialState.todos2
         },
         clearTodos: (state) => {
             state.todos = []
+            state.todos2 = {}
         }
     }
 })

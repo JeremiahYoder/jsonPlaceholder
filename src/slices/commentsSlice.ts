@@ -24,6 +24,9 @@ const commentsSlice = createSlice({
         },
         loadComments: (state, action: PayloadAction<IComment[]>) => {
             state.comments = [...state.comments, ...action.payload]
+            for (const comment of action.payload) {
+                state.comments2[comment.id] = comment
+            }
             state.isFetching = false
         },
         loadComment: (state, action: PayloadAction<IComment>) => {
@@ -33,9 +36,11 @@ const commentsSlice = createSlice({
         },
         resetComments:  (state) => {
             state.comments = initialState.comments
+            state.comments2 = initialState.comments2
         },
         clearComments: (state) => {
             state.comments = []
+            state.comments2 = {}
         }
     }
 })

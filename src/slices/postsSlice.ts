@@ -26,6 +26,9 @@ const postsSlice = createSlice({
         },
         loadPosts: (state, action: PayloadAction<IPost[]>) => {
             state.posts = [...state.posts, ...action.payload]
+            for (const post of action.payload) {
+                state.posts2[post.id] = post
+            }
             state.isFetching = false
         },
         loadPost: (state, action: PayloadAction<IPost>) => {
@@ -35,9 +38,11 @@ const postsSlice = createSlice({
         },
         resetPosts: (state) => {
             state.posts = initialState.posts
+            state.posts2 = initialState.posts2
         },
         clearPosts: (state) => {
             state.posts = []
+            state.posts2 = {}
         },
         setCurrentPost: (state, action: PayloadAction<number>) => {
             state.currentPost = action.payload
