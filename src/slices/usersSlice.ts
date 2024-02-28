@@ -25,7 +25,9 @@ const usersSlice = createSlice({
             state.isFetching = false
         },
         loadUser: (state, action: PayloadAction<IUser>) => {
-            state.users[action.payload.id] = action.payload
+            if (!isEqual(state.users[action.payload.id], action.payload)) {
+                state.users[action.payload.id] = action.payload
+            }
             state.isFetching = false
         },
         resetUsers: (state) => {
