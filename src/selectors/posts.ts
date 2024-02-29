@@ -1,19 +1,16 @@
+import { createSelector } from '@reduxjs/toolkit' 
 import { RootState } from '../store'
 import { IPostsState } from '../slices/postsSlice'
 import { currentUserId } from './users'
 
 export const postState = (state: RootState): IPostsState => state.posts
-export const posts = (state: RootState) => postState(state).posts ?? []
-export const isPostsLoading = (state: RootState) => postState(state).isFetching
 
-export const currentPostId = (state: RootState) => postState(state).currentPost
+export const posts = createSelector([postState], (postState) => postState.posts)
 
-export const currentPost = (state: RootState) => {
-    let postId = currentPostId(state)
-    return posts(state).find(post => post.id === postId)
-}
+export const isPostsLoading = createSelector([postState], (postState) => postState.isFetching)
 
-export const currentUserPosts = (state: RootState) => {
-    const userId = currentUserId(state)
-    return posts(state).filter(post => post.userId === userId)
-}
+export const currentPostId = createSelector([postState], (postState) => postState.currentPost)
+
+export const currentPost = createSelector([posts, currentPostId], (posts, postId) => posts.find(post => post.id === postId))
+
+export const currentUserPosts = createSelector([posts, currentUserId], (posts, userId) => posts.filter(post => post.userId === userId))

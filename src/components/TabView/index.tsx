@@ -26,7 +26,7 @@ const DEFAULTS: { routes: TabViewRoute[], sceneMap: TabViewScene } = {
 const TabView = (props: any) => {
     const [index, setIndex] = useState(0)
     const [routes] = useState<TabViewRoute[]>(props.routes ?? DEFAULTS.routes)
-    const sceneMap = SceneMap<TabViewScene>(props.sceneMap ?? DEFAULTS.sceneMap)
+    const sceneMap = SceneMap(props.sceneMap ?? DEFAULTS.sceneMap)
 
     return (
         <RNTabView 

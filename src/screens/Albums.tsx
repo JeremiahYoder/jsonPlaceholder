@@ -14,9 +14,11 @@ const Albums = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
+    console.log("[Albums][isUser]", isUser)
     const Albums = useAppSelector(isUser ? currentUserAlbums : albums)
+    console.log("[Albums][Albums]", Albums)
 
-    useEffect(() => {
+    useEffect(() => { 
         if (isUser) {
             // TODO: loadAlbumsDataByUserId
             return
@@ -31,6 +33,7 @@ const Albums = () => {
     }, [])
 
     const renderItem = useCallback(({ item } : { item: IAlbum }) => {
+        console.log("[Albums][renderItem]item", item)
         return (
             <TouchableOpacity key={item.id} style={styles.row} onPress={() => onItemPress(item.id)}>
                 <View>
@@ -46,8 +49,13 @@ const Albums = () => {
             <FlatList 
                 keyExtractor={item => item.id.toString()}
                 data={Albums}
+                numColumns={2}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
+                columnWrapperStyle={{
+                    borderColor: 'red', borderWidth: 1,
+                    height: 50
+                }}
                 style={styles.flatlistStyle}
             />
         </SafeAreaView>

@@ -24,7 +24,7 @@ const Users = () => {
     }, [])
 
     const onPressItem = useCallback((id: number) => {
-        dispatch(loadCurrentUser(id))
+        // dispatch(loadCurrentUser(id))
         navigation.navigate('User')
     }, [])
 

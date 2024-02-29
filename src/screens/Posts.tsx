@@ -13,6 +13,7 @@ const Posts = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
+    console.log("[Posts][isUser]", isUser)
     const Posts = useAppSelector(isUser ? currentUserPosts : posts)
 
     useEffect(() => {

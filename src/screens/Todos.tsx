@@ -12,6 +12,7 @@ const Todos = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
+    console.log("[Todos][isUser]", isUser)
     const Todos = useAppSelector(isUser ? currentUserTodos : todos)
 
     useEffect(() => {
