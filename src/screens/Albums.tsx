@@ -1,19 +1,27 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppSelector from '../hooks/useAppSelector'
-import { albums } from '../selectors/albums'
+import { albums, currentUserAlbums } from '../selectors/albums'
 import { IAlbum } from '../types/album'
 import useAppDispatch from '../hooks/useAppDispatch'
 import { loadAlbumsData, loadCurrentAlbum } from '../thunks/albums'
 import useAppNavigation from '../hooks/useAppNavigation'
+import { currentUserId } from '../selectors/users'
 
 const Albums = () => {
     const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
-    const Albums = useAppSelector(albums)
+
+    const isUser = useAppSelector(currentUserId)
+    const Albums = useAppSelector(isUser ? currentUserAlbums : albums)
 
     useEffect(() => {
+        if (isUser) {
+            // TODO: loadAlbumsDataByUserId
+            return
+        }
+        
         dispatch(loadAlbumsData())
     }, [])
 

@@ -2,23 +2,31 @@ import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TabView as RNTabView, SceneMap } from 'react-native-tab-view'
 
-const SampleRoute1 = () => <View style={styles.defaultRouteView1} />;
-const SampleRoute2 = () => <View style={styles.defaultRouteView2} />;
-
-const defaultScene = {
-    first: SampleRoute1,
-    second: SampleRoute2
+export interface TabViewScene {
+    [key: string]: () => React.JSX.Element
 }
 
-const defaultRouteCollection = [
-    { key: 'first', title: 'First'},
-    { key: 'second', title: 'Second'},
-]
+export interface TabViewRoute { 
+    key: string, 
+    title: string 
+}
 
-const TabView = (props) => {
+const DEFAULTS: { routes: TabViewRoute[], sceneMap: TabViewScene } = {
+    routes: [
+        { key: 'first', title: 'First'},
+        { key: 'second', title: 'Second'},
+    ],
+    sceneMap: {
+        first: () => <View style={styles.defaultRouteView1} />,
+        second: () => <View style={styles.defaultRouteView2} />
+    }
+}
+
+// TODO: INTERFACE
+const TabView = (props: any) => {
     const [index, setIndex] = useState(0)
-    const [routes] = useState(props.routes ?? defaultRouteCollection)
-    const sceneMap = SceneMap(props.sceneMap ?? defaultScene)
+    const [routes] = useState<TabViewRoute[]>(props.routes ?? DEFAULTS.routes)
+    const sceneMap = SceneMap<TabViewScene>(props.sceneMap ?? DEFAULTS.sceneMap)
 
     return (
         <RNTabView 
@@ -26,9 +34,8 @@ const TabView = (props) => {
             renderScene={sceneMap}
             onIndexChange={setIndex}
             initialLayout={styles.initialLayout}
-            style={{
-                borderColor: 'red', borderWidth: 1
-            }}
+            style={styles.tabViewStyle}
+            sceneContainerStyle={styles.tabViewSceneContainerStyle}
             {...props} 
         />
     )
@@ -37,6 +44,12 @@ const TabView = (props) => {
 const styles = StyleSheet.create({
     initialLayout: {
         width: '100%'
+    },
+    tabViewStyle: {
+
+    },
+    tabViewSceneContainerStyle: {
+        paddingTop: 10,
     },
     defaultRouteView1: {
         flex: 1,

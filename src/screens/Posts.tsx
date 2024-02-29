@@ -2,17 +2,25 @@ import React, { useCallback, useEffect } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { posts } from '../selectors/posts'
+import { currentUserPosts, posts } from '../selectors/posts'
 import { loadCurrentPost, loadPostsData } from '../thunks/posts'
 import { IPost } from '../types/post'
 import useAppNavigation from '../hooks/useAppNavigation'
+import { currentUserId } from '../selectors/users'
 
 const Posts = () => {
     const navigation = useAppNavigation()
     const dispatch = useAppDispatch()
-    const Posts = useAppSelector(posts)
+
+    const isUser = useAppSelector(currentUserId)
+    const Posts = useAppSelector(isUser ? currentUserPosts : posts)
 
     useEffect(() => {
+        if (isUser) {
+            // TODO: loadPostDataByUserId
+            return
+        }
+
         dispatch(loadPostsData())
     }, [])
 

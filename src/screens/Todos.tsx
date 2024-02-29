@@ -4,14 +4,22 @@ import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import { loadTodosData } from '../thunks/todos'
 import useAppSelector from '../hooks/useAppSelector'
-import { todos } from '../selectors/todos'
+import { currentUserTodos, todos } from '../selectors/todos'
 import { ITodo } from '../types/todo'
+import { currentUserId } from '../selectors/users'
 
 const Todos = () => {
     const dispatch = useAppDispatch()
-    const Todos = useAppSelector(todos)
+
+    const isUser = useAppSelector(currentUserId)
+    const Todos = useAppSelector(isUser ? currentUserTodos : todos)
 
     useEffect(() => {
+        if (isUser) {
+            // TODO: loadTodoDataByUserId
+            return
+        }
+
         dispatch(loadTodosData())
     }, [])
 
