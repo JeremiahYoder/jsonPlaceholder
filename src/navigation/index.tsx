@@ -83,7 +83,14 @@ export const MenuDrawer = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name='Home' component={BottomTabNavigator} />
-      <Drawer.Screen name='Users' component={UsersScreen} />
+      <Drawer.Screen 
+        name='Users' 
+        component={UsersScreen} 
+        options={{ 
+          headerShown: true,
+          title: 'Users',
+        }} 
+      />
       <Drawer.Screen name='Posts' component={PostsScreen} />
       <Drawer.Screen name='Comments' component={CommentsScreen} />
       <Drawer.Screen name='Todos' component={TodosScreen} />

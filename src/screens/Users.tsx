@@ -6,9 +6,14 @@ import { userState } from '../selectors/users'
 import { loadCurrentUser, loadUsersData, resetUserData } from '../thunks/users'
 import useAppNavigation from '../hooks/useAppNavigation'
 import { IUser } from '../types/user'
+import Button from '../components/Button'
 
 const Users = () => {
     const navigation = useAppNavigation()
+    navigation.setOptions({
+        headerRight: () => <Button title='Clear Users' onPress={() => dispatch(resetUserData())} color='blue'/>
+    })
+
     const dispatch = useAppDispatch()
 
     const Users = useAppSelector(userState).users
@@ -43,13 +48,6 @@ const Users = () => {
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}
-                ListHeaderComponent={() => (
-                    <View style={{ height: 100, width: 100 }}>
-                        <TouchableOpacity onPress={() => dispatch(resetUserData())}>
-                            <Text>Press Here</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
             />
         </SafeAreaView>
     )

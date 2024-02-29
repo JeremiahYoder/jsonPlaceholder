@@ -23,6 +23,28 @@ const User = () => {
 
     console.log("[User]User", User)
 
+    const ProfileView = () => (
+        <>
+            <Input value={User.username} placeholder='Username' />
+            <Input value={User.name} placeholder='Name' />
+            <Input value={User.email} placeholder='Email' />
+            <Input value={User.phone} placeholder='Phone' />
+            <Input value={User.website} placeholder='Website' />
+            <View style={styles.spacer} />
+            <Text>Address Info</Text>
+            <View style={styles.addressRow}>
+                <Input value={User.address.street} placeholder='Street' style={styles.streetStyle} />
+                <Input value={User.address.suite} placeholder='Suite' style={styles.suiteStyle} />
+            </View>
+            <View style={styles.addressRow}>
+                <Input value={User.address.city} placeholder='City' style={styles.cityStyle} />
+                <Input value={User.address.zipcode} placeholder='Zipcode' style={styles.zipCodeStyle} />
+            </View>
+
+            <Button title='Update' color='blue' style={styles.updateButton} />
+        </>
+    )
+
     if (!User) {
         return (
             <SafeAreaView style={styles.container}>
@@ -59,6 +81,16 @@ const User = () => {
                     <Text>Todos: {Todos.length}</Text>
                 </View>
             </View>
+
+            <View style={{ flexDirection: 'row', 
+                // borderColor: 'blue', borderWidth: 1, 
+                justifyContent: 'space-between' 
+                }}>
+                <Button title='Profile' color='blue' />
+                <Button title='Posts' color='blue' />
+                <Button title='Albums' color='blue' />
+                <Button title='Todos' color='blue' />
+            </View>
             
             <View style={styles.spacer} />
             <View style={styles.contentContainer}>
@@ -77,9 +109,9 @@ const User = () => {
                     <Input value={User.address.city} placeholder='City' style={styles.cityStyle} />
                     <Input value={User.address.zipcode} placeholder='Zipcode' style={styles.zipCodeStyle} />
                 </View>
-            </View>
 
-            <Button title='Update' color='blue' style={styles.updateButton} />
+                <Button title='Update' color='blue' style={styles.updateButton} />
+            </View>
         </SafeAreaView>
     )
 }
@@ -88,12 +120,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: 'white'
+        paddingBottom: 20,
+        backgroundColor: 'white',
         // alignItems: 'center',
         // justifyContent: 'center'
+
+        // borderColor: 'red', borderWidth: 1 
     },
     spacer: {
-        height: 20
+        height: 20,
+
+        // borderColor: 'green', borderWidth: 1 
     },
     title: {
         fontWeight: 'bold'
@@ -106,7 +143,12 @@ const styles = StyleSheet.create({
         fontStyle: 'italic'
     },
     contentContainer: {
+        flex: 1,
         width: '100%',
+
+        // alignSelf: 'flex-end',
+        // borderColor: 'blue', borderWidth: 1,
+        // justifyContent: 'flex-end'
         // height: 100,
         // paddingHorizontal: 20,
         // justifyContent: 'space-between'

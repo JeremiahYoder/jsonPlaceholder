@@ -16,7 +16,7 @@ import {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['session']
+    blacklist: ['session', 'counter']
   }
   
  const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -4,7 +4,7 @@ export type RootStackParamList = {
     Splash: undefined;
     Login: undefined;
     Home: undefined;
-    Profile: { name: string };
+    Profile: undefined;
     User: undefined;
     Post: undefined;
     Album: undefined;
