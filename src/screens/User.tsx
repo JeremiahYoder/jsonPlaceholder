@@ -11,6 +11,7 @@ import { currentUserPosts } from '../selectors/posts'
 import { currentUserAlbums } from '../selectors/albums'
 import { currentUserTodos } from '../selectors/todos'
 import { unloadCurrentUser } from '../thunks/users'
+import TabView from '../components/TabView'
 
 const User = () => {
     const dispatch = useAppDispatch()
@@ -24,7 +25,7 @@ const User = () => {
     console.log("[User]User", User)
 
     const ProfileView = () => (
-        <>
+        <View style={styles.contentContainer}>
             <Input value={User.username} placeholder='Username' />
             <Input value={User.name} placeholder='Name' />
             <Input value={User.email} placeholder='Email' />
@@ -42,8 +43,34 @@ const User = () => {
             </View>
 
             <Button title='Update' color='blue' style={styles.updateButton} />
-        </>
+        </View>
     )
+
+    const AlbumView = () => (
+        <View><Text>Album View</Text></View>
+    )
+
+    const PostView = () => (
+        <View><Text>Post View</Text></View>
+    )
+
+    const TodoView = () => (
+        <View><Text>Todo View</Text></View>
+    )
+
+    const tabViewRoutes: { key: string, title: string }[] = [
+        { key: 'profile', title: 'Profile' },
+        { key: 'album', title: 'Albums' },
+        { key: 'post', title: 'Posts' },
+        { key: 'todo', title: 'Todos' },
+    ]
+
+    const tabViewScene = {
+        profile: ProfileView,
+        album: AlbumView,
+        post: PostView,
+        todo: TodoView
+    }
 
     if (!User) {
         return (
@@ -66,8 +93,7 @@ const User = () => {
                     <Icon name='head' size={64} color='black' />
                     <View style={{ 
                         // borderColor: 'red', borderWidth: 1, 
-                        // paddingHorizontal: 10 
-                        }}>
+                    }}>
                         <Text style={styles.headerName}>{User.name}</Text>
                         <Text style={styles.headerUsername}>@{User.username}</Text>
                     </View>
@@ -81,37 +107,10 @@ const User = () => {
                     <Text>Todos: {Todos.length}</Text>
                 </View>
             </View>
-
-            <View style={{ flexDirection: 'row', 
-                // borderColor: 'blue', borderWidth: 1, 
-                justifyContent: 'space-between' 
-                }}>
-                <Button title='Profile' color='blue' />
-                <Button title='Posts' color='blue' />
-                <Button title='Albums' color='blue' />
-                <Button title='Todos' color='blue' />
-            </View>
-            
-            <View style={styles.spacer} />
-            <View style={styles.contentContainer}>
-                <Input value={User.username} placeholder='Username' />
-                <Input value={User.name} placeholder='Name' />
-                <Input value={User.email} placeholder='Email' />
-                <Input value={User.phone} placeholder='Phone' />
-                <Input value={User.website} placeholder='Website' />
-                <View style={styles.spacer} />
-                <Text>Address Info</Text>
-                <View style={styles.addressRow}>
-                    <Input value={User.address.street} placeholder='Street' style={styles.streetStyle} />
-                    <Input value={User.address.suite} placeholder='Suite' style={styles.suiteStyle} />
-                </View>
-                <View style={styles.addressRow}>
-                    <Input value={User.address.city} placeholder='City' style={styles.cityStyle} />
-                    <Input value={User.address.zipcode} placeholder='Zipcode' style={styles.zipCodeStyle} />
-                </View>
-
-                <Button title='Update' color='blue' style={styles.updateButton} />
-            </View>
+            <TabView 
+                routes={tabViewRoutes}
+                sceneMap={tabViewScene}
+            />
         </SafeAreaView>
     )
 }
@@ -122,8 +121,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 20,
         backgroundColor: 'white',
-        // alignItems: 'center',
-        // justifyContent: 'center'
 
         // borderColor: 'red', borderWidth: 1 
     },
@@ -146,13 +143,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
 
-        // alignSelf: 'flex-end',
         // borderColor: 'blue', borderWidth: 1,
-        // justifyContent: 'flex-end'
-        // height: 100,
-        // paddingHorizontal: 20,
-        // justifyContent: 'space-between'
-        // alignItems: 'center'
     },
     addressRow: {
         width: '100%', flexDirection: 'row'
