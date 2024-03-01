@@ -6,7 +6,11 @@ import { AppDispatch, RootState } from "../store";
 export function loadCommentsData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currComments = comments(getState())
-        if (currComments.length) return
+        console.log("[THUNK][loadCommentsData1]currComments", currComments)
+
+        if (Object.keys(currComments).length) return
+
+        console.log("[THUNK][loadCommentsData2]currComments", currComments)
 
         getComments().then(response => {
             if (response.data) dispatch(loadComments(response.data))

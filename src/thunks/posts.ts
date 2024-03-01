@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../store";
 export function loadPostsData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currPosts = posts(getState())
-        if (currPosts?.length) {
+        if (Object.keys(currPosts).length) {
             return
         }
 
@@ -19,7 +19,7 @@ export function loadPostsData() {
 export function loadPostDataById(id: number = 1) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currPosts = posts(getState())
-        if (currPosts.findIndex(user => user.id === id) !== -1) return
+        if (currPosts[id]) return
 
         getPostById(id?.toString()).then(response => {
             if (response.data) dispatch(loadPost(response.data))

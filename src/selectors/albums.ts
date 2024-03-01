@@ -8,6 +8,10 @@ export const albums = createSelector([albumsState], (albumsState) => albumsState
 
 export const currentAlbumId = createSelector([albumsState], (albumsState) => albumsState.currentAlbum)
 
-export const currentAlbum = createSelector([albums, currentAlbumId], (albums, albumId) => albums.find(album => album.id === albumId))
+export const currentAlbum = createSelector([albums, currentAlbumId], (albums, albumId) => {
+    if (albumId && albums[albumId]) return albums[albumId]
+})
 
-export const currentUserAlbums = createSelector([albums, currentUserId], (albums, userId) => albums.filter(album => album.userId === userId))
+export const currentUserAlbums = createSelector([albums, currentUserId], (albums, userId) => {
+    if (albums && userId) return Object.values(albums).filter(album => album.userId === userId)
+})

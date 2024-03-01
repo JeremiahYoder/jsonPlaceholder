@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
@@ -10,7 +10,10 @@ import { loadCommentsData } from '../thunks/comments'
 
 const Comments = () => {
     const dispatch = useAppDispatch()
+
     const Comments = useAppSelector(comments)
+    const CommentList = useMemo<IComment[]>(() => Object.values(Comments), [])
+    console.log("[Comments]CommentList", CommentList)
 
     useEffect(() => {
         dispatch(loadCommentsData())
@@ -30,7 +33,7 @@ const Comments = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Comments}
+                data={CommentList}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}

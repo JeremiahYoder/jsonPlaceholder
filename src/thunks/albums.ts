@@ -13,7 +13,7 @@ import {
 export function loadAlbumsData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currAlbums = albums(getState())
-        if (currAlbums.length) return
+        if (Object.keys(currAlbums).length) return
 
         getAlbums().then(response => {
             if (response.data) dispatch(loadAlbums(response.data))
@@ -24,7 +24,7 @@ export function loadAlbumsData() {
 export function loadAlbumDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currAlbums = albums(getState())
-        if (currAlbums.findIndex(album => album.id === id) !== -1) return
+        if (currAlbums[id]) return
 
         getAlbumById(id + '').then(response => {
             if (response.data) dispatch(loadAlbum(response.data))

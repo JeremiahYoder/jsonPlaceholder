@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { Text, View, StyleSheet, FlatList } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import { IPhoto } from '../types/photo'
@@ -9,7 +9,10 @@ import { loadPhotosData } from '../thunks/photos'
 
 const Photos = () => {
     const dispatch = useAppDispatch()
+    
     const Photos = useAppSelector(photos)
+    const PhotoList = useMemo<IPhoto[]>(() => Object.values(Photos), [Photos])
+    console.log("[Photos]PhotoList", PhotoList)
 
     useEffect(() => {
         dispatch(loadPhotosData())
@@ -30,7 +33,7 @@ const Photos = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={photo => photo.id.toString()}
-                data={Photos}
+                data={PhotoList}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}

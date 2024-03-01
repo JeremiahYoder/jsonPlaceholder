@@ -2,17 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IPhoto } from "../types/photo";
 import { IDictionary } from "../types/globals";
+import { isEqual } from "../utils/lodash";
 
 export interface IPhotosState {
     isFetching: boolean
-    photos: IPhoto[]
-    photos2: IDictionary<IPhoto>
+    photos: IDictionary<IPhoto>
 }
 
 const initialState: IPhotosState = {
     isFetching: false,
-    photos: [],
-    photos2: {}
+    photos: {}
 }
 
 const photosSlice = createSlice({
@@ -23,24 +22,24 @@ const photosSlice = createSlice({
             state.isFetching = action.payload
         },
         loadPhotos: (state, action: PayloadAction<IPhoto[]>) => {
-            state.photos = [...state.photos, ...action.payload]
             for (const photo of action.payload) {
-                state.photos2[photo.id] = photo
+                if (!isEqual(state.photos[photo.id], photo)) {
+                    state.photos[photo.id] = photo
+                }
             }
             state.isFetching = false
         },
         loadPhoto: (state, action: PayloadAction<IPhoto>) => {
-            state.photos = [...state.photos, action.payload]
-            state.photos2[action.payload.id] = action.payload
+            if (!isEqual(state.photos[action.payload.id], action.payload)) {
+               state.photos[action.payload.id] = action.payload 
+            }
             state.isFetching = false
         },
         resetPhotos: (state) => {
             state.photos = initialState.photos
-            state.photos2 = initialState.photos2
         },
         clearPhotos: (state) => {
-            state.photos = []
-            state.photos2 = {}
+            state.photos = {}
         }
     }
 })

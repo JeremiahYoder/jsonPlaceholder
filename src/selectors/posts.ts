@@ -11,6 +11,10 @@ export const isPostsLoading = createSelector([postState], (postState) => postSta
 
 export const currentPostId = createSelector([postState], (postState) => postState.currentPost)
 
-export const currentPost = createSelector([posts, currentPostId], (posts, postId) => posts.find(post => post.id === postId))
+export const currentPost = createSelector([posts, currentPostId], (posts, postId) => {
+    if (postId && posts[postId]) return posts[postId]
+})
 
-export const currentUserPosts = createSelector([posts, currentUserId], (posts, userId) => posts.filter(post => post.userId === userId))
+export const currentUserPosts = createSelector([posts, currentUserId], (posts, userId) => {
+    if (posts && userId) return Object.values(posts).filter(post => post.userId === userId)
+})

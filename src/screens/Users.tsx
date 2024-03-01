@@ -2,29 +2,29 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { userState } from '../selectors/users'
+import { users } from '../selectors/users'
 import { loadCurrentUser, loadUsersData, resetUserData } from '../thunks/users'
 import useAppNavigation from '../hooks/useAppNavigation'
 import { IUser } from '../types/user'
 import Button from '../components/Button'
 
 const Users = () => {
+    const dispatch = useAppDispatch()
     const navigation = useAppNavigation()
     navigation.setOptions({
         headerRight: () => <Button title='Clear Users' onPress={() => dispatch(resetUserData())} color='blue'/>
     })
 
-    const dispatch = useAppDispatch()
-
-    const Users = useAppSelector(userState).users
+    const Users = useAppSelector(users)
     const UserList = useMemo<IUser[]>(() => Object.values(Users), [Users])
+    console.log("[Todos]UserList", UserList)
 
     useEffect(() => {
         dispatch(loadUsersData())
     }, [])
 
     const onPressItem = useCallback((id: number) => {
-        // dispatch(loadCurrentUser(id))
+        dispatch(loadCurrentUser(id))
         navigation.navigate('User')
     }, [])
 

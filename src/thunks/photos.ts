@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../store";
 export function loadPhotosData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currPhotos = photos(getState())
-        if (currPhotos.length) return
+        if (Object.keys(currPhotos).length) return
 
         getPhotos().then(response => {
             if (response.data) dispatch(loadPhotos(response.data))
@@ -17,7 +17,7 @@ export function loadPhotosData() {
 export function loadPhotoDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currPhotos = photos(getState())
-        if (currPhotos.findIndex(photo => photo.id === id) !== -1) return
+        if (currPhotos[id]) return
 
         getPhotoById(id + '').then(response => {
             if (response.data) dispatch(loadPhoto(response.data))

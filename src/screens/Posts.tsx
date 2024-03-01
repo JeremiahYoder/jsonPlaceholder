@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
@@ -13,17 +13,13 @@ const Posts = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
-    console.log("[Posts][isUser]", isUser)
     const Posts = useAppSelector(isUser ? currentUserPosts : posts)
+    const PostList = useMemo<IPost[]>(() => Object.values(Posts), [Posts])
+    console.log("[Posts]PostList", PostList)
 
     useEffect(() => {
-        if (isUser) {
-            // TODO: loadPostDataByUserId
-            return
-        }
-
-        dispatch(loadPostsData())
-    }, [])
+        if (!isUser) dispatch(loadPostsData())
+    }, [isUser])
 
     const onPressItem = useCallback((id: number) => {
         dispatch(loadCurrentPost(id))
@@ -44,8 +40,9 @@ const Posts = () => {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList 
+                key={`POSTS_${isUser ?? 0}`}
                 keyExtractor={(item) => item.id.toString()}
-                data={Posts}
+                data={PostList}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}

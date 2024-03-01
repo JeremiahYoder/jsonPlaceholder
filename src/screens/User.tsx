@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import Icon from '../components/Icon'
@@ -6,16 +6,20 @@ import TabView, { TabViewRoute, TabViewScene } from '../components/TabView'
 import { ProfileTab, AlbumTab, PostTab, TodoTab } from '../components/UserTabs'
 import useAppSelector from '../hooks/useAppSelector'
 import { currentUser } from '../selectors/users'
-import { ActivityIndicator } from '@react-native-material/core'
+import useAppDispatch from '../hooks/useAppDispatch'
+import { clearCurrentUser } from '../slices/usersSlice'
 
 const User = () => {
+    const dispatch = useAppDispatch()
     const User = useAppSelector(currentUser)
 
-    if (!User || User.id === 0) {
+    useEffect(() => () => { dispatch(clearCurrentUser()) }, [])
+
+    if (!User) {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.emptyContainer}>
-                    <ActivityIndicator />
+                    <Text>No User Loaded</Text>
                 </View>
             </SafeAreaView>
         )
@@ -41,12 +45,12 @@ const User = () => {
                 <View style={styles.headerContent}>
                     <Icon name='head' size={styles.headerUserIcon.width} color={styles.headerUserIcon.color} />
                     <View style={styles.headerUserHeader}>
-                        <Text style={styles.headerName}>{User.name}</Text>
-                        <Text style={styles.headerUsername}>@{User.username}</Text>
+                        <Text style={styles.headerName}>{User?.name}</Text>
+                        <Text style={styles.headerUsername}>@{User?.username}</Text>
                     </View>
                 </View>
             </View>
-            <TabView routes={routes} sceneMap={scenes} />
+            <TabView key={`UserTab_${User.id}`} routes={routes} sceneMap={scenes} />
         </SafeAreaView>
     )
 }
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        paddingBottom: 20,
+        // paddingBottom: 5,
         backgroundColor: 'white',
         // borderColor: 'red', borderWidth: 1 
     },

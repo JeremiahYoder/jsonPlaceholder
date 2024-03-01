@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../store";
 export function loadTodosData() {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currTodos = todos(getState())
-        if (currTodos.length) return
+        if (Object.keys(currTodos).length) return
 
         getTodos().then(response => {
             if (response.data) dispatch(loadTodos(response.data))
@@ -17,7 +17,7 @@ export function loadTodosData() {
 export function loadTodoDataById(id: number) {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const currTodos = todos(getState())
-        if (currTodos.findIndex(todo => todo.id === id) !== -1) return
+        if (currTodos[id]) return
 
         getTodoById(id.toString()).then(response => {
             if (response.data) dispatch(loadTodo(response.data))

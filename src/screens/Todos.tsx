@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { FlatList, StyleSheet, View, Text } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
@@ -12,17 +12,13 @@ const Todos = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
-    console.log("[Todos][isUser]", isUser)
     const Todos = useAppSelector(isUser ? currentUserTodos : todos)
+    const TodoList = useMemo<ITodo[]>(() => Object.values(Todos), [Todos])
+    console.log("[Todos]TodoList", TodoList)
 
     useEffect(() => {
-        if (isUser) {
-            // TODO: loadTodoDataByUserId
-            return
-        }
-
-        dispatch(loadTodosData())
-    }, [])
+        if (!isUser) dispatch(loadTodosData())
+    }, [isUser])
 
     const renderItem = useCallback(({ item } : { item: ITodo }) => {
         return (
@@ -37,7 +33,7 @@ const Todos = () => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Todos}
+                data={TodoList}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 style={styles.flatlistStyle}

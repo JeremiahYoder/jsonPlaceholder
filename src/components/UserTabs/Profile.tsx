@@ -7,6 +7,7 @@ import { currentUser } from '../../selectors/users'
 
 const ProfileTab = () => {
     const User = useAppSelector(currentUser)
+    console.log("[TAB][Profile][User]", User)
 
     return (
         <View style={styles.contentContainer}>

@@ -2,19 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IAlbum } from "../types/album";
 import { IDictionary } from "../types/globals";
+import { isEqual } from "../utils/lodash";
 
 export interface IAlbumState {
     isFetching: boolean
     currentAlbum: number | undefined
-    albums: IAlbum[]
-    albums2: IDictionary<IAlbum>
+    albums: IDictionary<IAlbum>
 }
 
 const initialState: IAlbumState = {
     isFetching: false,
     currentAlbum: undefined,
-    albums: [],
-    albums2: {}
+    albums: {},
 }
 
 const albumsSlice = createSlice({
@@ -25,12 +24,17 @@ const albumsSlice = createSlice({
             state.isFetching = action.payload
         },
         loadAlbums: (state, action: PayloadAction<IAlbum[]>) => {
-            state.albums = [...state.albums, ...action.payload]
+            for (const album of action.payload) {
+                if (!isEqual(state.albums[album.id], album)) {
+                    state.albums[album.id] = album
+                }
+            }
             state.isFetching = false
         },
         loadAlbum: (state, action: PayloadAction<IAlbum>) => {
-            state.albums = [...state.albums, action.payload]
-            state.albums2[action.payload.id] = action.payload
+            if (!isEqual(state.albums[action.payload.id], action.payload)) {
+                state.albums[action.payload.id] = action.payload
+            }
             state.isFetching = false
         },
         resetAlbums: (state) => {

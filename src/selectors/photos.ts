@@ -6,4 +6,6 @@ export const photosState = (state: RootState) => state.photos
 
 export const photos = createSelector([photosState], (photosState) => photosState.photos)
 
-export const currentAlbumPhotos = createSelector([photos, currentAlbumId], (photos, albumId) => photos.filter(photo => photo.albumId === albumId))
+export const currentAlbumPhotos = createSelector([photos, currentAlbumId], (photos, albumId) => {
+    if (photos && albumId) return Object.values(photos).filter(photo => photo.albumId === albumId)
+})

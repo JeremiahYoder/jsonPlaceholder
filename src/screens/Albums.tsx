@@ -15,17 +15,12 @@ const Albums = () => {
     const dispatch = useAppDispatch()
 
     const isUser = useAppSelector(currentUserId)
-    console.log("[Albums][isUser]", isUser)
     const Albums = useAppSelector(isUser ? currentUserAlbums : albums)
-    console.log("[Albums][Albums]", Albums)
+    const AlbumList = useMemo<IAlbum[]>(() => Object.values(Albums), [Albums])
+    console.log("[Albums]AlbumList", AlbumList)
 
     useEffect(() => { 
-        if (isUser) {
-            // TODO: loadAlbumsDataByUserId
-            return
-        }
-        
-        dispatch(loadAlbumsData())
+        if (!isUser) dispatch(loadAlbumsData())
     }, [])
 
     const onItemPress = useCallback((id: number) => {
@@ -34,7 +29,6 @@ const Albums = () => {
     }, [])
 
     const renderItem = useCallback(({ item } : { item: IAlbum }) => {
-        console.log("[Albums][renderItem]item", item)
         return (
             <TouchableOpacity key={item.id} style={styles.row} onPress={() => onItemPress(item.id)}>
                 <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 5, paddingTop: 5 }}>
@@ -49,7 +43,7 @@ const Albums = () => {
         <SafeAreaView>
             <FlatList 
                 keyExtractor={item => item.id.toString()}
-                data={Albums}
+                data={AlbumList}
                 numColumns={2}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
@@ -57,8 +51,6 @@ const Albums = () => {
                     flex: 1,
                     padding: 10,
                     justifyContent: 'space-between'
-                    // borderColor: 'red', borderWidth: 1,
-                    
                 }}
                 style={styles.flatlistStyle}
             />
