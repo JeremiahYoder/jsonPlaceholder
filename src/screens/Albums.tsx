@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
+import Icon from '../components/Icon'
 import useAppSelector from '../hooks/useAppSelector'
 import { albums, currentUserAlbums } from '../selectors/albums'
 import { IAlbum } from '../types/album'
@@ -36,9 +37,9 @@ const Albums = () => {
         console.log("[Albums][renderItem]item", item)
         return (
             <TouchableOpacity key={item.id} style={styles.row} onPress={() => onItemPress(item.id)}>
-                <View>
-                    <Text>ID: {item.id}</Text>
-                    <Text>Title: {item.title}</Text>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 5, paddingTop: 5 }}>
+                   <Icon name='folder-multiple-image' size={48} />
+                   <Text>{item.title}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -53,8 +54,11 @@ const Albums = () => {
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
                 columnWrapperStyle={{
-                    borderColor: 'red', borderWidth: 1,
-                    height: 50
+                    flex: 1,
+                    padding: 10,
+                    justifyContent: 'space-between'
+                    // borderColor: 'red', borderWidth: 1,
+                    
                 }}
                 style={styles.flatlistStyle}
             />
@@ -78,8 +82,10 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     row: { 
-        borderColor: 'red', 
-        borderWidth: 1, 
+        width: '48%',
+        // height: 50,
+        borderColor: 'red', borderWidth: 1,
+        borderRadius: 5
     }
 })
 
