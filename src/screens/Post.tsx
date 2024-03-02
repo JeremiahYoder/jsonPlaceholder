@@ -3,11 +3,18 @@ import { View, Text, StyleSheet } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
-import { unloadCurrentPost } from '../thunks/posts'
+import { resetPostData, unloadCurrentPost } from '../thunks/posts'
 import { currentPostComments } from '../selectors/comments'
 import { currentPost } from '../selectors/posts'
+import useAppNavigation from '../hooks/useAppNavigation'
+import Button from '../components/Button'
 
 const Post = () => {
+    const navigation = useAppNavigation()
+    navigation.setOptions({
+        headerRight: () => <Button title='Clear Users' onPress={() => dispatch(resetPostData())} color='blue'/>
+    })
+
     const dispatch = useAppDispatch()
     useEffect(() => () => { dispatch(unloadCurrentPost()) }, [])
 

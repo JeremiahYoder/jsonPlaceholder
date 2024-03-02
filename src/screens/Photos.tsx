@@ -3,14 +3,16 @@ import { Text, View, StyleSheet, FlatList } from 'react-native'
 import SafeAreaView from '../components/SafeAreaView'
 import { IPhoto } from '../types/photo'
 import useAppSelector from '../hooks/useAppSelector'
-import { photos } from '../selectors/photos'
+import { currentAlbumPhotos, photos } from '../selectors/photos'
 import useAppDispatch from '../hooks/useAppDispatch'
 import { loadPhotosData } from '../thunks/photos'
+import { currentAlbumId } from '../selectors/albums'
 
 const Photos = () => {
     const dispatch = useAppDispatch()
     
-    const Photos = useAppSelector(photos)
+    const currentAlbum = useAppSelector(currentAlbumId)
+    const Photos = useAppSelector(currentAlbum ? currentAlbumPhotos : photos)
     const PhotoList = useMemo<IPhoto[]>(() => Object.values(Photos), [Photos])
     console.log("[Photos]PhotoList", PhotoList)
 

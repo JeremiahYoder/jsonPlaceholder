@@ -6,7 +6,7 @@ import useAppSelector from '../hooks/useAppSelector'
 import { albums, currentUserAlbums } from '../selectors/albums'
 import { IAlbum } from '../types/album'
 import useAppDispatch from '../hooks/useAppDispatch'
-import { loadAlbumsData, loadCurrentAlbum } from '../thunks/albums'
+import { loadAlbumsData, loadCurrentAlbum, unloadCurrentAlbum } from '../thunks/albums'
 import useAppNavigation from '../hooks/useAppNavigation'
 import { currentUserId } from '../selectors/users'
 
@@ -20,20 +20,23 @@ const Albums = () => {
     console.log("[Albums]AlbumList", AlbumList)
 
     useEffect(() => { 
-        if (!isUser) dispatch(loadAlbumsData())
+        if (!isUser) { dispatch(loadAlbumsData()) }
+        // return () => { dispatch(unloadCurrentAlbum()) }
     }, [])
 
     const onItemPress = useCallback((id: number) => {
         dispatch(loadCurrentAlbum(id))
-        navigation.navigate('Album')
-    }, [])
+        if (!isUser) navigation.navigate('Album')
+    }, [isUser])
 
     const renderItem = useCallback(({ item } : { item: IAlbum }) => {
         return (
             <TouchableOpacity key={item.id} style={styles.row} onPress={() => onItemPress(item.id)}>
-                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 5, paddingTop: 5 }}>
+                <View style={styles.rowContent}>
                    <Icon name='folder-multiple-image' size={48} />
-                   <Text>{item.title}</Text>
+                   <View style={styles.titleWrapper}>
+                    <Text style={styles.albumTitle}>{item.title}</Text>
+                   </View>
                 </View>
             </TouchableOpacity>
         )
@@ -47,11 +50,7 @@ const Albums = () => {
                 numColumns={2}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
-                columnWrapperStyle={{
-                    flex: 1,
-                    padding: 10,
-                    justifyContent: 'space-between'
-                }}
+                columnWrapperStyle={styles.columnWrapperStyle}
                 style={styles.flatlistStyle}
             />
         </SafeAreaView>
@@ -65,8 +64,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     contentContainerStyle: {
-        borderColor: 'blue',
-        borderWidth: 1
+        // borderColor: 'blue',
+        // borderWidth: 1
+    },
+    columnWrapperStyle: {
+        flex: 1,
+        padding: 5,
+        // marginHorizontal: 5,
+        justifyContent: 'space-between'
     },
     flatlistStyle: {
         flexGrow: 1,
@@ -74,10 +79,56 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     row: { 
-        width: '48%',
+        // width: '45%',
+        flex: 1,
+        minHeight: 100,
+        marginHorizontal: 5,
         // height: 50,
-        borderColor: 'red', borderWidth: 1,
-        borderRadius: 5
+        // borderColor: 'gray', borderWidth: 1,
+        borderTopLeftRadius: 5,
+        borderBottomRightRadius: 5,
+
+        // elevation: 1,
+        // shadowColor: 'blue'
+        borderTopWidth: 0.5,
+        borderRightWidth: 0.5,
+        borderLeftWidth: 2,
+        borderBottomWidth: 2,
+
+
+
+        // {
+        //     shadowColor: 'rgba(0,0,0, .4)', // IOS
+        //     shadowOffset: { height: 1, width: 1 }, // IOS
+        //     shadowOpacity: 1, // IOS
+        //     shadowRadius: 1, //IOS
+        //     backgroundColor: '#fff',
+        //     elevation: 2, // Android
+        //     height: 50,
+        //     width: 100,
+        //     justifyContent: 'center',
+        //     alignItems: 'center',
+        //     flexDirection: 'row',
+        // }
+
+
+    },
+    rowContent: {
+        flex: 1,
+        // borderColor: 'purple', borderWidth: 1, 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        alignItems: 'flex-start', 
+        
+        margin: 5, 
+        // paddingTop: 5 
+    },
+    titleWrapper: {
+        // borderColor: 'red', borderWidth: 1
+    },
+    albumTitle: {
+        fontSize: 12,
+        fontStyle: 'italic'
     }
 })
 

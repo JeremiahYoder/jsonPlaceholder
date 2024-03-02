@@ -5,11 +5,18 @@ import useAppSelector from '../hooks/useAppSelector'
 import { currentAlbum } from '../selectors/albums'
 import { currentAlbumPhotos } from '../selectors/photos'
 import useAppDispatch from '../hooks/useAppDispatch'
-import { unloadCurrentAlbum } from '../thunks/albums'
+import { resetAlbumData, unloadCurrentAlbum } from '../thunks/albums'
+import useAppNavigation from '../hooks/useAppNavigation'
+import Button from '../components/Button'
 
 export interface IAlbumProps {}
 
 const Album: React.FC<IAlbumProps> = () => {
+    const navigation = useAppNavigation()
+    navigation.setOptions({
+        headerRight: () => <Button title='Clear Users' onPress={() => dispatch(resetAlbumData())} color='blue'/>
+    })
+
     const dispatch = useAppDispatch()
     useEffect(() => () => { dispatch(unloadCurrentAlbum()) })
 

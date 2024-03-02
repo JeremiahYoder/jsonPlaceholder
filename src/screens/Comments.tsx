@@ -7,8 +7,15 @@ import useAppSelector from '../hooks/useAppSelector'
 import { IComment } from '../types/comment'
 import { comments } from '../selectors/comments'
 import { loadCommentsData } from '../thunks/comments'
+// import useAppNavigation from '../hooks/useAppNavigation'
+// import Button from '../components/Button'
 
 const Comments = () => {
+    // const navigation = useAppNavigation()
+    // navigation.setOptions({
+    //     headerRight: () => <Button title='Clear Users' onPress={() => dispatch(resetCommentData())} color='blue'/>
+    // })
+
     const dispatch = useAppDispatch()
 
     const Comments = useAppSelector(comments)
